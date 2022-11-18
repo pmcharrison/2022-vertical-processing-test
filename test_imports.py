@@ -1,0 +1,2 @@
+class CustomCls:
+    pass

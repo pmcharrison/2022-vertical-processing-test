@@ -1,0 +1,39 @@
+[Launch mode]
+mode = sandbox
+
+[Payment information]
+title = MCMCP demo
+base_payment = 0.10
+
+[Recruitment strategy]
+recruiter = hotair
+auto_recruit = true
+lifetime = 24
+duration = 2
+us_only = true
+approve_requirement = 95
+ad_group = Game
+browser_exclude_rule = MSIE, mobile, tablet
+disable_when_duration_exceeded = False
+
+[Ad metadata]
+description = This experiment asks you to evaluate the pleasantness of musical sounds.
+keywords = demo
+contact_email_on_error = pmch2@cam.ac.uk
+organization_name = University of Cambridge
+
+[Database]
+database_url = postgresql://postgres@localhost/dallinger
+database_size = standard-2
+
+[Server]
+# Dyno types: hobby, standard-1x, standard-2x, performance-m, performance-l, probably performance-m is best
+dyno_type = performance-m
+num_dynos_web = 1
+num_dynos_worker = 1
+redis_size = hobby-dev
+host = 0.0.0.0
+clock_on = true
+
+docker_image_base_name = registry.gitlab.developers.cam.ac.uk/mus/cms/psynet-experiment-images
+docker_image_name = registry.gitlab.developers.cam.ac.uk/mus/cms/psynet-experiment-images@sha256:9cdf3a66165d5032b26c17516f8955faa06be9b249b8aeb2cab597301cea78b5
