@@ -33,8 +33,10 @@ Running the experiment requires you to install some software called Docker. You 
 [this link](https://docs.docker.com/get-docker/).
 Once you've installed Docker, you should open it and leae it running in the background.
 
-We recommend using PyCharm as an IDE for working on this experiment. You can download PyCharm for free online
+We recommend using PyCharm as an IDE for working on this experiment. You can download PyCharm online
 via [this link](https://www.jetbrains.com/help/pycharm/installation-guide.html).
+It is best to use the Full edition, rather than Community edition, for proper Docker support (I think).
+If you are based at an educational institution you can apply for a free license via the PyCharm (JetBrains) website
 
 Once you've installed PyCharm, open it, then click File > Open and open the folder that Git downloaded for you.
 This opens the experiment directory as a PyCharm 'project'.
@@ -50,3 +52,23 @@ Click Docker, and then under 'image name' enter 'consonance-dichotic-stretching:
 Press OK. Now if you click on 'Python console' at the bottom of the screen, you should get a Python interpreter
 corresponding to the image you just built.
 
+## Docker installation on Windows
+
+If you see a message beginning with "WSL 2 installation is incomplete", you probably need to do the following....
+
+- Click on the link it gives you
+- Click on the link under 'download the latest package', open and run the installer once it has downloaded
+- Continue with the next steps of the installation
+- Note: if you run Powershell, it might fail if you run it on admin mode! If you get stuck (Access Denied),
+  try running it again without admin mode and see if it works.
+
+If you try and resume opening Docker straight after it will probably throw an error.
+This is ordinarily solved by restarting the computer and reopening Docker. 
+
+If you see a message beginning "Hardware assisted virtualization and data execution protection must be enabled in the BIOS",
+you need to restart your computer into BIOS and change some settings to enable those two things.
+The precise set of steps will depend on your computer. The first step though is to restart your computer,
+and press a certain key to launch into BIOS -- ordinarily that key will be printed on the screen at some point
+during the startup sequence. 
+
+Hint -- you might find that the option you need to select is called 'SVM mode'....

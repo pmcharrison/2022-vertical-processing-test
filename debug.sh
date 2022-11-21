@@ -1,7 +1,9 @@
-EXPERIMENT_IMAGE=consonance-dichotic-stretching
-DOCKER_BUILDKIT=1
+# Ensures that the script stops on errors
+set -euo pipefail
 
-docker build . -t ${EXPERIMENT_IMAGE}
+. params.sh
+. services.sh
+. build.sh
 
 docker run \
   --name dallinger \
@@ -15,6 +17,6 @@ docker run \
   -e FLASK_OPTIONS='-h 0.0.0.0' \
   -e REDIS_URL=redis://dallinger_redis:6379 \
   -e DATABASE_URL=postgresql://dallinger:dallinger@dallinger_postgres/dallinger \
-  ${EXPERIMENT_IMAGE} \
+  "${EXPERIMENT_IMAGE}" \
   psynet debug \
-  | sed "s:/tmp/dallinger_develop:${PWD}:"
+  | sed "s:/tmp/dallinger_develop/:${PWD}/:"

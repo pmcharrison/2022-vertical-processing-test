@@ -1,4 +1,2 @@
-EXPERIMENT_IMAGE=consonance-dichotic-stretching
-
-DOCKER_BUILDKIT=1
-docker build . -t ${EXPERIMENT_IMAGE}
+echo "Building the experiment's Docker image and tagging it $EXPERIMENT_IMAGE..."
+docker build . -t "${EXPERIMENT_IMAGE}"
