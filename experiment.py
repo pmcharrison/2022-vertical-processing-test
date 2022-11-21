@@ -1,19 +1,23 @@
 # pylint: disable=unused-import,abstract-method,unused-argument
 import json
 import random
+import tempfile
 from statistics import mean
 
 from flask import Markup
 
 import psynet.experiment
+from psynet.asset import DebugStorage
 from psynet.consent import MainConsent, NoConsent
-from psynet.modular_page import PushButtonControl
+from psynet.modular_page import PushButtonControl, AudioRecordControl
 from psynet.page import InfoPage, SuccessfulEndPage, ModularPage
-from psynet.timeline import Timeline, Module, CodeBlock
+from psynet.timeline import Timeline, Module, CodeBlock, Event, ProgressDisplay, ProgressStage
 from psynet.trial.static import StaticTrial, StaticNode, StaticTrialMaker
 from psynet.utils import get_logger
 
 from psynet.js_synth import JSSynth, Chord, InstrumentTimbre
+
+import singing_extract as singing
 
 logger = get_logger()
 
@@ -44,14 +48,23 @@ VOCAL_RANGES = {
     "Bass": 52,
 }
 
+singing_analysis_config = {
+    # This needs to be populated with reference to
+    # - https://gitlab.com/computational-audition-lab/sing4me/-/blob/master/sing_experiments/params.py
+    # and
+    # - https://gitlab.com/computational-audition-lab/sing4me/-/blob/master/sing4me/singing_extract.py
+}
+
 
 class VerticalProcessingTrial(StaticTrial):
     time_estimate = 5
 
     def finalize_definition(self, definition, experiment, participant):
         n_pitches = len(definition["chord_type"])
-        definition["duration"] = 3.5  # How long is the chord? (seconds)
+        definition["chord_duration"] = 3.5  # How long is the chord? (seconds)
         definition["roving_radius"] = 1.0  # The centre pitch of the chord roves +/- this value in semitones
+        definition["silence_duration"] = 0.5  # How long do we wait between the chord and the recording?
+        definition["record_duration"] = 1.0 + n_pitches * 1.25  # How long is the recording?
 
         # definition["timbre"] = ["piano" for _ in definition["chord_type"]]
 
@@ -84,32 +97,69 @@ class VerticalProcessingTrial(StaticTrial):
         }
 
         return ModularPage(
-            "vertical_processing_page",
+            "singing",
             JSSynth(
-                Markup("Please rate the sound for <strong>pleasantness</strong> on a scale from 1 to 7."),
+                "Sing back the notes in the chord in any order.",
                 [
                     Chord(
                         self.definition["target_pitches"],
-                        duration=self.definition["duration"],
+                        duration=self.definition["chord_duration"],
                         timbre=self.definition["timbre"],
                     ) 
                 ],
                 timbre=timbre_library,
             ),
-            PushButtonControl(
-                choices=[1, 2, 3, 4, 5, 6, 7],
-                labels=[
-                    "(1) Very unpleasant",
-                    "(2)",
-                    "(3)",
-                    "(4)",
-                    "(5)",
-                    "(6)",
-                    "(7) Very pleasant",
-                ],
-                arrange_vertically=False,
+            AudioRecordControl(
+                duration=self.definition["chord_duration"]
+            ),
+            events={
+                "recordStart": Event(
+                    is_triggered_by="promptEnd",
+                    delay= self.definition["silence_duration"]
+                )
+            },
+            progress_display=ProgressDisplay(
+                stages=[
+                    ProgressStage(
+                        self.definition["chord_duration"],
+                        "Listen to the chord...",
+                        color="green",
+                    ),
+                    ProgressStage(
+                        self.definition["silence_duration"],
+                        "Wait a moment...",
+                        color="grey"
+                    ),
+                    ProgressStage(
+                        self.definition["record_duration"],
+                        "Sing back the chord!",
+                        color="red",
+                    ),
+                    ProgressStage(
+                        0.25,
+                        "Click 'Next' when you are ready to continue.",
+                        color="grey",
+                        persistent=True,
+                    )
+                ]
             )
         )
+
+    wait_for_feedback = True
+
+    def async_post_trial(self):
+        with tempfile.NamedTemporaryFile() as f_audio, tempfile.NamedTemporaryFile() as f_plot:
+            self.assets["singing"].export(f_audio.name)
+            self.var.analysis = singing.analyze(
+                f_audio.name,
+                singing_analysis_config,
+                target_pitches=self.definition["target_pitches"],
+                plot_options=singing.PlotOptions(
+                    save=True,
+                    path=f_plot.name,
+                    format="png"
+                ),
+            )
 
 
 def get_voice_type():
@@ -139,6 +189,8 @@ def get_voice_type():
 
 class Exp(psynet.experiment.Experiment):
     label = "Vertical processing experiment"
+
+    asset_storage = DebugStorage()
 
     timeline = Timeline(
         NoConsent(),
