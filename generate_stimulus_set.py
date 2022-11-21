@@ -3,8 +3,8 @@ import itertools
 import json
 import random
 
-cardinalities = [2, 3, 4]
-k = 12  # This means that we cover all 12 dyads within the octave
+cardinalities = [2, 3]
+k = 20
 
 chosen = []
 
@@ -15,7 +15,10 @@ for cardinality in cardinalities:
     n_non_bass_pitches = cardinality - 1
     possible_non_bass_pitches = range(1, 13)  # Numbers between 1 and 12 inclusive
     possible_non_bass_combinations = list(itertools.combinations(possible_non_bass_pitches, n_non_bass_pitches))
-    chosen_non_bass_combinations = random.sample(possible_non_bass_combinations, k=k)
+    chosen_non_bass_combinations = random.sample(
+        possible_non_bass_combinations,
+        k=min(k, len(possible_non_bass_combinations))
+    )
     chosen_chord_types = [[bass] + list(non_bass) for non_bass in chosen_non_bass_combinations]
     chosen_chord_types.sort()
     chosen = chosen + chosen_chord_types

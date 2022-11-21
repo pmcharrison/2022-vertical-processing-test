@@ -17,24 +17,25 @@ from psynet.js_synth import JSSynth, Chord, InstrumentTimbre
 
 logger = get_logger()
 
+
 with open("chord_types.json") as file:
     NODES = [
         StaticNode(
             definition={
                 "chord_type": chord_type,
-                "duration": 2.5,
-                "roving_radius": 2.5,
-                "timbres": ["piano"],
+                "timbre_type": timbre_type,
             },
         )
         for chord_type in json.load(file)
+        for timbre_type in ["same", "different"]
     ]
 
-TIMBRES = {
-    "piano": InstrumentTimbre(
-        type="piano",
-    ),
-}
+AVAILABLE_TIMBRES = [
+    "piano",
+    "flute",
+    "trumpet",
+    "saxophone",
+]
 
 VOCAL_RANGES = {
     "Soprano": 69,
@@ -48,6 +49,18 @@ class VerticalProcessingTrial(StaticTrial):
     time_estimate = 5
 
     def finalize_definition(self, definition, experiment, participant):
+        n_pitches = len(definition["chord_type"])
+        definition["duration"] = 3.5  # How long is the chord? (seconds)
+        definition["roving_radius"] = 1.0  # The centre pitch of the chord roves +/- this value in semitones
+
+        # definition["timbre"] = ["piano" for _ in definition["chord_type"]]
+
+        if definition["timbre_type"] == ["same"]:
+            _timbre = random.choice(AVAILABLE_TIMBRES, k=1)
+            definition["timbre"] = [_timbre for _ in n_pitches]
+        else:
+            definition["timbre"] = random.sample(AVAILABLE_TIMBRES, k=n_pitches)
+
         mean_target_pitch = random.uniform(
             participant.var.vocal_centre - self.definition["roving_radius"],
             participant.var.vocal_centre + self.definition["roving_radius"]
@@ -63,7 +76,12 @@ class VerticalProcessingTrial(StaticTrial):
         return definition
 
     def show_trial(self, experiment, participant):
-        timbre = [TIMBRES[timbre] for timbre in self.definition["timbres"]]
+        timbre_library = {
+            timbre_label: InstrumentTimbre(
+                type=timbre_label,
+            )
+            for timbre_label in self.definition["timbre"]
+        }
 
         return ModularPage(
             "vertical_processing_page",
@@ -73,10 +91,10 @@ class VerticalProcessingTrial(StaticTrial):
                     Chord(
                         self.definition["target_pitches"],
                         duration=self.definition["duration"],
-                        timbre=timbre,
-                    )
+                        timbre=self.definition["timbre"],
+                    ) 
                 ],
-                timbre=timbre,
+                timbre=timbre_library,
             ),
             PushButtonControl(
                 choices=[1, 2, 3, 4, 5, 6, 7],
@@ -92,6 +110,7 @@ class VerticalProcessingTrial(StaticTrial):
                 arrange_vertically=False,
             )
         )
+
 
 def get_voice_type():
     return Module(
@@ -116,6 +135,7 @@ def get_voice_type():
             )
         )
     )
+
 
 class Exp(psynet.experiment.Experiment):
     label = "Vertical processing experiment"
