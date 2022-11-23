@@ -5,6 +5,7 @@ set -euo pipefail
 . services.sh
 . build.sh
 
+# Note: any changes to this command should be propagated to terminal.sh
 docker run \
   --name dallinger \
   --rm \
@@ -12,6 +13,7 @@ docker run \
   -u $(id -u "${USER}"):$(id -g "${USER}") \
   -v "${PWD}":/experiment \
   -v "${HOME}"/.dallingerconfig:/.dallingerconfig \
+  -v "/tmp/psynet-debug-storage":/psynet-debug-storage \
   --network dallinger \
   -p 5000:5000 \
   -e FLASK_OPTIONS='-h 0.0.0.0' \
