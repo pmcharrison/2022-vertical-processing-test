@@ -17,14 +17,22 @@ WORKDIR /experiment
 
 COPY requirements.txt requirements.txt
 RUN python3 -m pip install -r requirements.txt
+
+WORKDIR /
+
+ARG PSYNET_EDITABLE
+RUN if [[ "$PSYNET_EDITABLE" = 1 ]] ; then pip install -e /PsyNet ; fi
+
+WORKDIR /experiment
+
 COPY . /experiment
 
 ENV PORT=5000
 
-# We can remove this once the latest PsyNet image builds
-ENV PSYNET_IN_DOCKER=1
-RUN mkdir /psynet-debug-storage
-RUN mkdir /psynet-exports
-#
+## We can remove this once the latest PsyNet image builds
+#ENV PSYNET_IN_DOCKER=1
+#RUN mkdir /psynet-debug-storage
+#RUN mkdir /psynet-exports
+##
 
 CMD dallinger_heroku_web
