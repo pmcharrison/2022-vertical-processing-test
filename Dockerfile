@@ -20,4 +20,11 @@ RUN python3 -m pip install -r requirements.txt
 COPY . /experiment
 
 ENV PORT=5000
+
+# We can remove this once the latest PsyNet image builds
+ENV PSYNET_IN_DOCKER=1
+RUN mkdir /psynet-debug-storage
+RUN mkdir /psynet-exports
+#
+
 CMD dallinger_heroku_web
