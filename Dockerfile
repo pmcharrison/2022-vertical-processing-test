@@ -10,7 +10,7 @@
 #   This simplifies the logic and ensures that experimenters can specify package versions precisely if they want.
 #   The small performance overhead is mostly eliminated by caching.
 
-FROM registry.gitlab.com/computational-audition-lab/psynet:v10-draft
+FROM registry.gitlab.com/psynetdev/psynet:v10-draft
 
 RUN mkdir /experiment
 WORKDIR /experiment

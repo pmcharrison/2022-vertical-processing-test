@@ -19,7 +19,7 @@ docker run \
   -e FLASK_OPTIONS='-h 0.0.0.0' \
   -e REDIS_URL=redis://dallinger_redis:6379 \
   -e DATABASE_URL=postgresql://dallinger:dallinger@dallinger_postgres/dallinger \
-  -e PSYNET_EDITABLE="${PSYNET_EDITABLE}" \
+  -e PSYNET_EDITABLE="${PSYNET_EDITABLE:-}" \
   -v "${PSYNET_LOCAL_PATH}":/PsyNet \
   "${EXPERIMENT_IMAGE}" \
   psynet debug \
