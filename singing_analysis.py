@@ -1,3 +1,5 @@
+import json
+
 from sing4me import singing_extract  # noqa - something weird about the sing4me package definition?
 
 SING4ME_CONFIG = dict(
@@ -56,9 +58,13 @@ def analyze_recording(
     )
 
     return {
-        "pitches": [note["median_f0"] for note in raw],
-        "raw": raw,
+        "pitches": [float(note["median_f0"]) for note in raw],
+        "raw": simplify_numpy_types(raw),
     }
+
+
+def simplify_numpy_types(x):
+    return json.loads(json.dumps(x))
 
 
 # sing_duration = 4,

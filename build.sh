@@ -1,3 +1,5 @@
+. params.sh
+
 echo "Building the experiment's Docker image and tagging it $EXPERIMENT_IMAGE..."
 
 DOCKER_BUILDKIT=1 \

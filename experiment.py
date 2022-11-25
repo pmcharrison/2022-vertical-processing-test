@@ -1,5 +1,6 @@
 # pylint: disable=unused-import,abstract-method,unused-argument
 import json
+import math
 import random
 import tempfile
 from statistics import mean
@@ -9,12 +10,13 @@ import psynet.experiment
 from psynet.asset import DebugStorage, ExperimentAsset
 from psynet.consent import NoConsent
 from psynet.js_synth import JSSynth, Chord, InstrumentTimbre
-from psynet.modular_page import PushButtonControl, AudioRecordControl
+from psynet.modular_page import PushButtonControl, AudioRecordControl, MusicNotationPrompt
 from psynet.page import InfoPage, SuccessfulEndPage, ModularPage
 from psynet.timeline import Timeline, Module, CodeBlock, Event, ProgressDisplay, ProgressStage
 from psynet.trial.static import StaticTrial, StaticNode, StaticTrialMaker
 from psynet.utils import get_logger
 
+from .utils import midi_to_abc
 from . import singing_analysis
 
 logger = get_logger()
@@ -139,8 +141,27 @@ class VerticalProcessingTrial(StaticTrial):
         )
 
     def show_feedback(self, experiment, participant):
-        return InfoPage(
-            f"Target pitches: {self.definition['target_pitches']}. Sung pitches: {self.var.sung_pitches}",
+        target_pitches = self.definition["target_pitches"]
+        transposition = target_pitches[0] - math.floor(target_pitches[0])  # Transpose down to the nearest integer
+        target_pitches = [round(pitch - transposition) for pitch in target_pitches]
+        target_pitches_text = ", ".join([f"{pitch}" for pitch in target_pitches])
+        target_pitches_abc = midi_to_abc(target_pitches)
+
+        sung_pitches = [pitch - transposition for pitch in self.var.sung_pitches]  # Apply the same transposition
+        sung_pitches_text = ", ".join([f"{pitch:.2f}" for pitch in sung_pitches])
+        sung_pitches_int = [round(pitch) for pitch in sung_pitches]
+        sung_pitches_abc = midi_to_abc(sung_pitches_int)
+
+        abc = target_pitches_abc + " | " + sung_pitches_abc + "|\\nw: Target | Sung"
+        if mean(target_pitches + sung_pitches) < 60:
+            abc = "K: 1 clef=bass\\n" + abc
+
+        return ModularPage(
+            "show_feedback",
+            MusicNotationPrompt(
+                abc,
+                text=f"Target pitches = {target_pitches_text}, sung pitches = {sung_pitches_text}."
+            ),
             time_estimate=0,
         )
 
