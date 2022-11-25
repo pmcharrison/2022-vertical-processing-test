@@ -49,8 +49,6 @@ VOCAL_RANGES = {
 }
 
 
-
-
 class VerticalProcessingTrial(StaticTrial):
     time_estimate = 5
 
