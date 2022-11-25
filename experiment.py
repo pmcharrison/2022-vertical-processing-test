@@ -4,20 +4,18 @@ import random
 import tempfile
 from statistics import mean
 
-from flask import Markup
-
 import psynet.experiment
-from psynet.asset import DebugStorage
-from psynet.consent import MainConsent, NoConsent
+
+from psynet.asset import DebugStorage, ExperimentAsset
+from psynet.consent import NoConsent
+from psynet.js_synth import JSSynth, Chord, InstrumentTimbre
 from psynet.modular_page import PushButtonControl, AudioRecordControl
 from psynet.page import InfoPage, SuccessfulEndPage, ModularPage
 from psynet.timeline import Timeline, Module, CodeBlock, Event, ProgressDisplay, ProgressStage
 from psynet.trial.static import StaticTrial, StaticNode, StaticTrialMaker
 from psynet.utils import get_logger
 
-from psynet.js_synth import JSSynth, Chord, InstrumentTimbre
-
-import singing_extract as singing
+from . import singing_analysis
 
 logger = get_logger()
 
@@ -48,12 +46,7 @@ VOCAL_RANGES = {
     "Bass": 52,
 }
 
-singing_analysis_config = {
-    # This needs to be populated with reference to
-    # - https://gitlab.com/computational-audition-lab/sing4me/-/blob/master/sing_experiments/params.py
-    # and
-    # - https://gitlab.com/computational-audition-lab/sing4me/-/blob/master/sing4me/singing_extract.py
-}
+
 
 
 class VerticalProcessingTrial(StaticTrial):
@@ -145,21 +138,31 @@ class VerticalProcessingTrial(StaticTrial):
             )
         )
 
+    def show_feedback(self, experiment, participant):
+        return InfoPage(
+            f"Target pitches: {self.definition['target_pitches']}. Sung pitches: {self.var.sung_pitches}",
+            time_estimate=0,
+        )
+
     wait_for_feedback = True
 
     def async_post_trial(self):
         with tempfile.NamedTemporaryFile() as f_audio, tempfile.NamedTemporaryFile() as f_plot:
             self.assets["singing"].export(f_audio.name)
-            self.var.analysis = singing.analyze(
+
+            result = singing_analysis.analyze_recording(
                 f_audio.name,
-                singing_analysis_config,
-                target_pitches=self.definition["target_pitches"],
-                plot_options=singing.PlotOptions(
-                    save=True,
-                    path=f_plot.name,
-                    format="png"
-                ),
+                f_plot.name
             )
+            self.var.sung_pitches = result["pitches"]
+            self.var.singing_analysis = result["raw"]
+
+            plot = ExperimentAsset(
+                f_plot.name,
+                parent=self,
+                extension=".png",
+            )
+            plot.deposit()
 
 
 def get_voice_type():

@@ -29,6 +29,13 @@ COPY . /experiment
 
 ENV PORT=5000
 
+#RUN mkdir /.config
+#RUN mkdir /.config/matplotlib  # Used by matplotlib - consider porting to PsyNet?
+#RUN chmod a+rwx -R /.config  # Makes the folder writable
+
+# MATLAB's config cache directory
+ENV MPLCONFIGDIR=/tmp/matplotlib-config
+
 ## We can remove this once the latest PsyNet image builds
 #ENV PSYNET_IN_DOCKER=1
 #RUN mkdir /psynet-debug-storage
