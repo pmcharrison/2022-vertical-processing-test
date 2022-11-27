@@ -2,6 +2,9 @@ import music21
 
 
 def midi_to_abc(midi, duration=4):
+    if len(midi) == 0:
+        return f"z{duration}"
+
     pitch_list = [music21.pitch.Pitch(pitch) for pitch in midi]
     respelled_pitches = music21.analysis.enharmonics.EnharmonicSimplifier(pitch_list).bestPitches()
 

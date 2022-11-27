@@ -148,7 +148,7 @@ class VerticalProcessingTrial(StaticTrial):
         sung_pitches = [pitch - transposition for pitch in self.var.sung_pitches]  # Apply the same transposition
         sung_pitches_text = ", ".join([f"{pitch:.2f}" for pitch in sung_pitches])
         sung_pitches_int = [round(pitch) for pitch in sung_pitches]
-        sung_pitches_abc = midi_to_abc(sung_pitches_int)
+        sung_pitches_abc = midi_to_abc(sung_pitches_int)  # Warning: music21 errors seem to cause feedback page to be skipped
 
         abc = target_pitches_abc + " | " + sung_pitches_abc + "|\\nw: Target | Sung"
         if mean(target_pitches + sung_pitches) < 60:
