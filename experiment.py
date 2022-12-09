@@ -3,11 +3,12 @@ import json
 import math
 import random
 import tempfile
+from datetime import time
 from statistics import mean
 
 import psynet.experiment
 
-from psynet.asset import DebugStorage, ExperimentAsset
+from psynet.asset import DebugStorage, ExperimentAsset, Asset
 from psynet.consent import NoConsent
 from psynet.js_synth import JSSynth, Chord, InstrumentTimbre
 from psynet.modular_page import PushButtonControl, AudioRecordControl, MusicNotationPrompt
@@ -15,6 +16,8 @@ from psynet.page import InfoPage, SuccessfulEndPage, ModularPage
 from psynet.timeline import Timeline, Module, CodeBlock, Event, ProgressDisplay, ProgressStage
 from psynet.trial.static import StaticTrial, StaticNode, StaticTrialMaker
 from psynet.utils import get_logger
+
+from dallinger import db
 
 from .utils import midi_to_abc
 from . import singing_analysis
@@ -61,10 +64,11 @@ class VerticalProcessingTrial(StaticTrial):
 
         # definition["timbre"] = ["piano" for _ in definition["chord_type"]]
 
-        if definition["timbre_type"] == ["same"]:
-            _timbre = random.choice(AVAILABLE_TIMBRES, k=1)
-            definition["timbre"] = [_timbre for _ in n_pitches]
+        if definition["timbre_type"] == "same":
+            _timbre = random.choice(AVAILABLE_TIMBRES)
+            definition["timbre"] = [_timbre for _ in range(n_pitches)]
         else:
+            assert definition["timbre_type"] == "different"
             definition["timbre"] = random.sample(AVAILABLE_TIMBRES, k=n_pitches)
 
         mean_target_pitch = random.uniform(
@@ -103,12 +107,12 @@ class VerticalProcessingTrial(StaticTrial):
                 timbre=timbre_library,
             ),
             AudioRecordControl(
-                duration=self.definition["chord_duration"]
+                duration=self.definition["record_duration"]
             ),
             events={
                 "recordStart": Event(
                     is_triggered_by="promptEnd",
-                    delay= self.definition["silence_duration"],
+                    delay=self.definition["silence_duration"],
                 ),
                 "submitEnable": Event(
                     is_triggered_by="recordEnd",
@@ -170,7 +174,35 @@ class VerticalProcessingTrial(StaticTrial):
 
     def async_post_trial(self):
         with tempfile.NamedTemporaryFile() as f_audio, tempfile.NamedTemporaryFile() as f_plot:
-            self.assets["singing"].export(f_audio.name)
+            try:
+                self.assets["singing"].export(f_audio.name)
+            except KeyError:
+                logger.info(
+                    "Failed to find self.assets['stimulus']. This error happens occasionally "
+                    "and we haven't been able to debug it yet. It may be some kind of race condition. "
+                    "We'll now print some debugging information to try and help solve this mystery. "
+                )
+                logger.info("Does our trial's node have pending async processes?")
+                logger.info(self.node.async_processes)
+                if len(self.node.async_processes) > 0:
+                    logger.info([x.__json__() for x in self.node.async_processes])
+
+                logger.info("What happens if we refresh the object?")
+                db.session.refresh(self)
+                logger.info(self.assets["stimulus"])
+
+                logger.info("What happens if we perform a fresh database query?")
+                asset = Asset.query.filter_by(trial_id=self.id).all()
+                logger.info(asset)
+
+                logger.info("How about waiting a bit?")
+                time.sleep(0.5)
+
+                logger.info("Another fresh database query?")
+                asset = Asset.query.filter_by(trial_id=self.id).all()
+                logger.info(asset)
+
+                assert False, "Throw an error here so we can check the logs and learn what happened"
 
             result = singing_analysis.analyze_recording(
                 f_audio.name,
