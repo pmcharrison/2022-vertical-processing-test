@@ -19,7 +19,6 @@ docker run \
   -v "$PSYNET_EXPORT_STORAGE":/psynet-exports \
   --network dallinger \
   -p 5000:5000 \
-  -p "$REMOTE_DEBUGGER_PORT":"$REMOTE_DEBUGGER_PORT" \
   -e FLASK_OPTIONS='-h 0.0.0.0' \
   -e REDIS_URL=redis://dallinger_redis:6379 \
   -e DATABASE_URL=postgresql://dallinger:dallinger@dallinger_postgres/dallinger \

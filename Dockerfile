@@ -36,4 +36,7 @@ COPY . /experiment
 
 ENV PORT=5000
 
+ARG REMOTE_DEBUGGER_PORT
+EXPOSE $REMOTE_DEBUGGER_PORT
+
 CMD dallinger_heroku_web
