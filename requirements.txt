@@ -6,7 +6,7 @@
 # to a particular commit.
 #
 # dallinger@git+https://github.com/Dallinger/Dallinger.git@print-dashboard-url#egg=dallinger
-dallinger@git+https://github.com/Dallinger/Dallinger.git@e6843f90f16d70e24df0ee765b83f4a3677d455c#egg=dallinger
+dallinger@git+https://github.com/Dallinger/Dallinger.git@bc28748758f9c0a778494cd76adfc6b97891242d#egg=dallinger
 
 # Example pinning a particular version of PsyNet
 psynet@git+https://gitlab.com/PsyNetDev/PsyNet.git@b4d15e1a62cdfae841e44b89d49b71b6def65f89#egg=psynet
