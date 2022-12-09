@@ -31,7 +31,7 @@ with open("chord_types.json") as file:
             },
         )
         for chord_type in json.load(file)
-        for timbre_type in ["same", "different"]
+        for timbre_type in ["same"]
     ]
 
 AVAILABLE_TIMBRES = [
@@ -108,8 +108,11 @@ class VerticalProcessingTrial(StaticTrial):
             events={
                 "recordStart": Event(
                     is_triggered_by="promptEnd",
-                    delay= self.definition["silence_duration"]
-                )
+                    delay= self.definition["silence_duration"],
+                ),
+                "submitEnable": Event(
+                    is_triggered_by="recordEnd",
+                ),
             },
             progress_display=ProgressDisplay(
                 stages=[

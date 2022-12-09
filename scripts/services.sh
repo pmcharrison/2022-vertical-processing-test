@@ -1,8 +1,13 @@
 # Sets up services required for running Dockerized PsyNet commands
-
 # Ensures that the script stops on errors
 set -euo pipefail
 
+echo "Checking Docker access..."
+if [[ "$(docker network ls | grep "could not be found in this WSL 2 distro")" != "" ]]
+then
+  echo "Docker installation could not be found in this WSL 2 distro. Did you remember to launch Docker Desktop?"
+  exit 1
+fi
 
 echo "Confirming that the Dallinger network exists..."
 if [[ "$(docker network ls | grep dallinger)" = "" ]]
@@ -14,6 +19,7 @@ else
 fi
 
 echo "Confirming that dallinger_redis is running..."
+docker start dallinger_redis || true
 if [[ "$(docker ps | grep dallinger_redis)" = "" ]]
 then
   echo "...no. Creating now..."
@@ -26,6 +32,7 @@ else
 fi
 
 echo "Confirming that dallinger_postgres is running..."
+docker start dallinger_postgres || true
 if [[ "$(docker ps | grep dallinger_postgres)" = "" ]]
 then
   echo "...no. Creating now..."

@@ -10,7 +10,7 @@
 #   This simplifies the logic and ensures that experimenters can specify package versions precisely if they want.
 #   The small performance overhead is mostly eliminated by caching.
 
-FROM registry.gitlab.com/psynetdev/psynet:v10-draft
+FROM registry.gitlab.com/psynetdev/psynet:v10-release-candidate
 
 RUN mkdir /experiment
 WORKDIR /experiment
@@ -20,26 +20,17 @@ RUN python3 -m pip install -r requirements.txt
 
 WORKDIR /
 
-ARG PSYNET_EDITABLE
-RUN if [[ "$PSYNET_EDITABLE" = 1 ]] ; then pip install -e /PsyNet ; fi
+ARG PSYNET_DEVELOPER_MODE
+RUN if [[ "$PSYNET_DEVELOPER_MODE" = 1 ]] ; then pip install --no-dependencies -e /PsyNet ; fi
+RUN if [[ "$PSYNET_DEVELOPER_MODE" = 1 ]] ; then pip install --no-dependencies -e /Dallinger ; fi
 
 WORKDIR /experiment
+
+COPY *prepare_docker_image.sh prepare_docker_image.sh
+RUN if test -f prepare_docker_image.sh ; then bash prepare_docker_image.sh ; fi
 
 COPY . /experiment
 
 ENV PORT=5000
-
-#RUN mkdir /.config
-#RUN mkdir /.config/matplotlib  # Used by matplotlib - consider porting to PsyNet?
-#RUN chmod a+rwx -R /.config  # Makes the folder writable
-
-# MATLAB's config cache directory
-ENV MPLCONFIGDIR=/tmp/matplotlib-config
-
-## We can remove this once the latest PsyNet image builds
-#ENV PSYNET_IN_DOCKER=1
-#RUN mkdir /psynet-debug-storage
-#RUN mkdir /psynet-exports
-##
 
 CMD dallinger_heroku_web
