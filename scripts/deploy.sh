@@ -18,6 +18,7 @@ docker run \
   -e HOME=/root \
   -e SKIP_DEPENDENCY_CHECK=1
   -e DALLINGER_NO_EGG_BUILD=1 \
+  -p "$REMOTE_DEBUGGER_PORT":"$REMOTE_DEBUGGER_PORT" \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v  ~/.ssh:/root/.ssh \
   -v "${PWD}":/experiment \

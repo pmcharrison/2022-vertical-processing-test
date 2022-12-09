@@ -4,6 +4,7 @@ else
   export EXPERIMENT_IMAGE=psynet-experiment
 fi
 
+export REMOTE_DEBUGGER_PORT=12345
 export DOCKER_BUILDKIT=1
 export PSYNET_LOCAL_PATH="${HOME}"/PsyNet
 export DALLINGER_LOCAL_PATH="${HOME}"/Dallinger

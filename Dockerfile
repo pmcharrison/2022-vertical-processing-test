@@ -12,6 +12,9 @@
 
 FROM registry.gitlab.com/psynetdev/psynet:v10-release-candidate
 
+# This is used for debugging experiments using PyCharm
+RUN python3 -m pip install pydevd-pycharm~=221.6008.17
+
 RUN mkdir /experiment
 WORKDIR /experiment
 
