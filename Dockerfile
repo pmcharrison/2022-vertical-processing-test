@@ -25,7 +25,7 @@ WORKDIR /
 
 ARG PSYNET_DEVELOPER_MODE
 RUN if [[ "$PSYNET_DEVELOPER_MODE" = 1 ]] ; then pip install --no-dependencies -e /PsyNet ; fi
-RUN if [[ "$PSYNET_DEVELOPER_MODE" = 1 ]] ; then pip install --no-dependencies -e /Dallinger ; fi
+RUN if [[ "$PSYNET_DEVELOPER_MODE" = 1 ]] ; then pip install --no-dependencies -e /dallinger ; fi
 
 WORKDIR /experiment
 
