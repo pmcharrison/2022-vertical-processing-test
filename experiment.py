@@ -3,7 +3,7 @@ import json
 import math
 import random
 import tempfile
-from datetime import time
+import time
 from statistics import mean
 
 import psynet.experiment
@@ -107,7 +107,8 @@ class VerticalProcessingTrial(StaticTrial):
                 timbre=timbre_library,
             ),
             AudioRecordControl(
-                duration=self.definition["record_duration"]
+                duration=self.definition["record_duration"],
+                bot_response_media="example_audio.wav",
             ),
             events={
                 "recordStart": Event(
@@ -177,6 +178,8 @@ class VerticalProcessingTrial(StaticTrial):
             try:
                 self.assets["singing"].export(f_audio.name)
             except KeyError:
+                # This is some debugging code that I inserted in order to track a rare error ####
+                # It can be ignored unless this error recurs again in the future! ####
                 logger.info(
                     "Failed to find self.assets['stimulus']. This error happens occasionally "
                     "and we haven't been able to debug it yet. It may be some kind of race condition. "
@@ -203,6 +206,7 @@ class VerticalProcessingTrial(StaticTrial):
                 logger.info(asset)
 
                 assert False, "Throw an error here so we can check the logs and learn what happened"
+                ####
 
             result = singing_analysis.analyze_recording(
                 f_audio.name,
