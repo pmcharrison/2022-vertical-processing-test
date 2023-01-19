@@ -7,12 +7,14 @@ main principle is that you write commands of the following form:
 ```shell
 bash docker/psynet debug local  # Debug the experiment locally
 
+bash docker/pytest test.py  # Run the experiment's automatic tests
+
 bash docker/psynet export local  # Export data from a local experiment
 ```
 
 There are several commands like this that will soon be fully documented on PsyNet's 
 [documentation website](https://psynetdev.gitlab.io/PsyNet).
-Please make sure you have followed the instructions in INSTALL.md before trying them.
+Please make sure you have followed the instructions in `INSTALL.md` before trying them.
 
 ## Advanced usage
 
@@ -52,6 +54,8 @@ You can then invoke the commands like this:
 
 ```shell
 docker/psynet debug local
+
+docker/psynet export local
 ```
 
 ### Running without Docker
