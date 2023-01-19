@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Initializes parameters for running PsyNet in Docker
+
 if test -f Dockertag; then
   export EXPERIMENT_IMAGE=$(cat Dockertag)
 else

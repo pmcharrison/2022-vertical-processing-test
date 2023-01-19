@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Builds the experiment Docker image
+
 . docker/params
 
 echo "Building the experiment's Docker image and tagging it $EXPERIMENT_IMAGE..."

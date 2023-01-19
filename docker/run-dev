@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+
+. docker/params
+. docker/check-dev-installations
+
+export PSYNET_DEVELOPER_MODE=1
+
+./docker/run "$@"
