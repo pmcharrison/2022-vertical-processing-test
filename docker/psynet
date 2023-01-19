@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-. docker/params.sh
+. docker/params
 
-./docker/run.sh psynet "$@" \
+./docker/run psynet "$@" \
   | sed -e "s:/tmp/dallinger_develop/:${PWD}/:" -e "s:\"/PsyNet/":"\"${PSYNET_LOCAL_PATH}/:"

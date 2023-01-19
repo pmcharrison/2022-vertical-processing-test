@@ -4,7 +4,7 @@
 env/
 
 # Automatically generated deployment resources, e.g. database templates
-deploy/
+.deploy/
 
 # Automatically generated resources for hot-fresh debugger
 /develop
@@ -12,8 +12,8 @@ deploy/
 # Automatically generated server log file
 server.log
 
-# Automatically generated resources for debugging experiments with debug storage
-static/debug_storage
+# Automatically generated resources for debugging experiments with assets
+static/assets
 
 .idea
 

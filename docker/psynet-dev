@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-. docker/params.sh
+. docker/params
 
 export PSYNET_DEVELOPER_MODE=1
 
@@ -16,4 +16,4 @@ if [ ! -d "$DALLINGER_LOCAL_PATH"/dallinger ]; then
   exit 1
 fi
 
-./docker/psynet.sh "$@"
+./docker/psynet "$@"

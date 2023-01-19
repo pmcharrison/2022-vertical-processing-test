@@ -1,6 +1,6 @@
 set -euo pipefail
 
-. docker/params.sh
+. docker/params
 
 docker exec \
   -it \

@@ -104,7 +104,7 @@ good internet connection for this, it will take a few minutes.
 You build the experiment by running the following in your PyCharm terminal:
 
 ```shell
-bash docker/build.sh
+bash docker/build
 ```
 
 If you see some error messages at this point, see Troubleshooting.
@@ -115,7 +115,7 @@ If all has gone well, you should now be able to run the experiment.
 Try this by running the following command in your PyCharm terminal:
 
 ```shell
-bash docker/debug.sh
+bash docker/debug
 ```
 
 It'll print a lot of stuff, but eventually you should see 'Dashboard link' printed.
