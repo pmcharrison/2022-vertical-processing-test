@@ -2,18 +2,11 @@
 
 set -euo pipefail
 
-. docker/params
+# Invoke PsyNet in developer mode, meaning that the Docker image will use local installations of PsyNet and Dallinger,
+# assumed to be located at ~/PsyNet and ~/Dallinger respectively.
+# Arguments can be passed to the PsyNet invocation as normal, for example `psynet-dev debug`.
+# Note: console logs will be filtered to map mapped Docker directories to their local equivalents.
 
 export PSYNET_DEVELOPER_MODE=1
-
-if [ ! -d "$PSYNET_LOCAL_PATH"/psynet/trial ]; then
-  printf '%s\n' "Couldn't find a PsyNet repository at $PSYNET_LOCAL_PATH. Consider downloading a PsyNet repository and/or updating params.sh." >&2  # write error message to stderr
-  exit 1
-fi
-
-if [ ! -d "$DALLINGER_LOCAL_PATH"/dallinger ]; then
-  printf '%s\n' "Couldn't find a Dallinger repository at $DALLINGER_LOCAL_PATH. Consider downloading a Dallinger repository and/or updating params.sh." >&2  # write error message to stderr
-  exit 1
-fi
 
 ./docker/psynet "$@"

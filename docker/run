@@ -3,6 +3,11 @@
 set -euo pipefail
 
 . docker/params
+
+if [[ ${PSYNET_DEVELOPER_MODE:-} == "1" ]]; then
+  . docker/check-dev-installations
+fi
+
 . docker/services
 . docker/build
 
@@ -35,10 +40,6 @@ docker run \
   -v "${DALLINGER_LOCAL_PATH}":/dallinger \
   "${EXPERIMENT_IMAGE}" \
   "$@"
-
-
-#  | if [ -n "$DISABLE_DOCKER_FILTER" ]; then cat; else sed -e "s:/tmp/dallinger_develop/:${PWD}/:" -e "s:\"/PsyNet/":"\"${PSYNET_LOCAL_PATH}/:" -e "s:/psynet-data/:${PSYNET_LOCAL_DATA_PATH}/:"; fi
-#  | sed -e "s:/tmp/dallinger_develop/:${PWD}/:" -e "s:\"/PsyNet/":"\"${PSYNET_LOCAL_PATH}/:" -e "s:/psynet-data/:${PSYNET_LOCAL_DATA_PATH}/:"
 
 #  /bin/bash -c "psynet --version"
 

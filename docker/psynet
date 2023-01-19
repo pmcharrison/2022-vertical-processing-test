@@ -1,6 +1,11 @@
 #!/bin/bash
 
+# Invoke PsyNet. Arguments can be passed to the Psynet invocation as normal, for example `psynet debug`.
+# Note: console logs will be filtered to map mapped Docker directories to their local equivalents.
+
 set -euo pipefail
+
+. docker/params
 
 ./docker/run "$@" | sed \
 -e "s:/tmp/dallinger_develop/:${PWD}/:" \

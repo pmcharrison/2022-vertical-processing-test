@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Confirm that development installations of PsyNet and Dallinger are present.
+
 if [ ! -d "$PSYNET_LOCAL_PATH"/psynet/trial ]; then
   printf '%s\n' "Couldn't find a PsyNet repository at $PSYNET_LOCAL_PATH. Consider downloading a PsyNet repository and/or updating params.sh." >&2  # write error message to stderr
   exit 1
