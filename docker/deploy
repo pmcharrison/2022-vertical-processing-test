@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Note: SSH support in requirements.txt is not yet supported for Windows and Linux hosts (to be fixed soon)"
 
 . docker/params

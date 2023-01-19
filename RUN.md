@@ -6,6 +6,8 @@ main principle is that you write commands of the following form:
 
 ```shell
 bash docker/psynet debug local  # Debug the experiment locally
+
+bash docker/psynet export local  # Export data from a local experiment
 ```
 
 There are several commands like this that will soon be fully documented on PsyNet's 
@@ -13,6 +15,28 @@ There are several commands like this that will soon be fully documented on PsyNe
 Please make sure you have followed the instructions in INSTALL.md before trying them.
 
 ## Advanced usage
+
+### Running with local installations of PsyNet and Dallinger
+
+This experiment makes heavy use of the Python packages PsyNet and Dallinger.
+If you want to debug either of these packages, it is useful to run your 
+experiment with local installations of them. The first step is to 
+download the source code for these packages and store in them in your 
+home directory under their default names as downloaded from source control
+(i.e. `~/PsyNet` and `~/Dallinger` respectively). Then you can run your 
+experiment as before, but writing `psynet-dev` instead of `psynet, 
+for example:
+
+```shell
+# Debug the experiment locally with developer installations of 
+# PsyNet and Dallinger.
+bash docker/psynet-dev debug local 
+```
+
+You can change Python code in these packages, save it, then refresh
+the browser, and the app should restart with the new code
+(note: this hot-refreshing does not yet apply to non-Python assets
+such as JavaScript or HTML).
 
 ### Running without bash
 
@@ -38,6 +62,3 @@ then you can use the same commands but just omitting `bash docker/`, so for exam
 ```shell
 psynet debug local
 ```
-
-(Note for advanced users: if you make the file _executable_ you can omit the `bash` and just 
-write `docker/psynet debug local`.)

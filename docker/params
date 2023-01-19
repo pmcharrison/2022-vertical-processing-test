@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if test -f Dockertag; then
   export EXPERIMENT_IMAGE=$(cat Dockertag)
 else
@@ -20,6 +22,7 @@ fi
 export REMOTE_DEBUGGER_PORT=12345
 export DOCKER_BUILDKIT=1
 export PSYNET_LOCAL_PATH="${HOME}"/PsyNet
+export PSYNET_LOCAL_DATA_PATH="${HOME}"/psynet-data
 export DALLINGER_LOCAL_PATH="${HOME}"/Dallinger
 export PSYNET_DEBUG_STORAGE="${HOME}"/psynet-debug-storage
 export PSYNET_EXPORT_STORAGE="${HOME}"/psynet-data/export

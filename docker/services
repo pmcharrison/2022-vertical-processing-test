@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Sets up services required for running Dockerized PsyNet commands
 # Ensures that the script stops on errors
 set -euo pipefail

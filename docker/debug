@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Ensures that the script stops on errors
 set -euo pipefail
 
