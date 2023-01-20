@@ -26,7 +26,6 @@ docker run \
   -v "${HOME}/Library/Application Support/dallinger/":/.local/share/dallinger/ \
   -v "${PWD}":/experiment \
   -v "${HOME}"/.dallingerconfig:/.dallingerconfig \
-  -v "$PSYNET_DEBUG_STORAGE":/psynet-debug-storage \
   -v "$PSYNET_EXPORT_STORAGE":/psynet-data/export \
   --network dallinger \
   -p 5000:5000 \
