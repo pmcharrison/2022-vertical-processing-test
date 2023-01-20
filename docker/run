@@ -11,8 +11,8 @@ fi
 . docker/services
 . docker/build
 
-#echo "TODO: wrap error message here"
-docker rm dallinger || true
+( docker stop dallinger > /dev/null && echo Stopped existing dallinger container && \
+  docker rm dallinger ) 2>/dev/null || true
 
 docker run \
   --name dallinger \
@@ -39,7 +39,3 @@ docker run \
   -v "${DALLINGER_LOCAL_PATH}":/dallinger \
   "${EXPERIMENT_IMAGE}" \
   "$@"
-
-#  /bin/bash -c "psynet --version"
-
-#  "$@"
