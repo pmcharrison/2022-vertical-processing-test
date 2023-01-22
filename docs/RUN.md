@@ -10,6 +10,9 @@ bash docker/psynet debug local
 # Export data from a local experiment
 bash docker/psynet export local  
 
+# Run tests
+bash docker/run pytest test.py
+
 # Enter a bash terminal (e.g. for debugging)
 bash docker/run bash 
 

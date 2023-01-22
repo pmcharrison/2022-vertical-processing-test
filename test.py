@@ -2,7 +2,7 @@
 
 # To run this test via Docker, run the following in your terminal:
 #
-# bash docker/psynet
+# bash docker/run pytest test.py
 
 # You can customize the behavior of the automated tests by overriding certain methods within
 # your experiment class, located in experiment.py:

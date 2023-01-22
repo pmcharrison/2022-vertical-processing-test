@@ -115,7 +115,7 @@ If all has gone well, you should now be able to run the experiment.
 Try this by running the following command in your PyCharm terminal:
 
 ```shell
-bash docker/debug
+bash docker/psynet debug local
 ```
 
 It'll print a lot of stuff, but eventually you should see 'Dashboard link' printed.
