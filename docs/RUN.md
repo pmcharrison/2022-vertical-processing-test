@@ -1,20 +1,52 @@
 # Running instructions
 
-There are various commands for running and interacting with PsyNet experiments.
-We are still working on updating all of them to run with Docker. However, the
-main principle is that you write commands of the following form:
+To run a PsyNet command using the re
+Docker, you write commands of the following form:
 
 ```shell
-bash docker/psynet debug local  # Debug the experiment locally
+# Debug the experiment locally
+bash docker/psynet debug local  
 
-bash docker/pytest test.py  # Run the experiment's automatic tests
+# Export data from a local experiment
+bash docker/psynet export local  
 
-bash docker/psynet export local  # Export data from a local experiment
+# Enter a bash terminal (e.g. for debugging)
+bash docker/run bash 
+
+# Enter a Python terminal (e.g. for debugging)
+bash docker/run python  
 ```
+
+**Note**: before you run these commands you must have installed and launched
+Docker Desktop (see `INSTALL.md`).
 
 There are several commands like this that will soon be fully documented on PsyNet's 
 [documentation website](https://psynetdev.gitlab.io/PsyNet).
 Please make sure you have followed the instructions in `INSTALL.md` before trying them.
+
+## What happens when I run these commands?
+
+`bash docker/psynet` calls a shell script with the file path `docker/psynet`. 
+This shell script does several things:
+
+1. It downloads any required Dallinger/PsyNet images from the internet.
+2. It builds a Docker image for your experiment, with reference to `Dockerfile`
+   and `requirements.txt`. This includes installing latest versions of any specified
+   packages. This step is cached to save time over successive runs.
+3. It spins up local Database and Redis services if they are not already available.
+4. It launches a Docker container for your experiment.
+5. It executes the command `psynet` followed by the arguments that you provided.
+6. It filters the console logs to replace certain Docker-specific file paths
+   with their equivalents for your local file system. This means that error
+   tracebacks will point to the source code that you can edit in your IDE,
+   and it means that data exports will link correctly to your computer's 
+   export directory.
+
+`bash docker/run` is a more general command that allows you to run any command
+directly on the Docker container. For example, running `bash docker/run bash`
+allows you to enter an interactive terminal. Note that this command does 
+_not_ provide any console log filtering, because this could be quite confusing
+for debugging.
 
 ## Advanced usage
 
