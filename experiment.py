@@ -7,8 +7,8 @@ import time
 from statistics import mean
 
 import psynet.experiment
-
-from psynet.asset import DebugStorage, ExperimentAsset, Asset
+from dallinger import db
+from psynet.asset import ExperimentAsset, Asset, LocalStorage
 from psynet.consent import NoConsent
 from psynet.js_synth import JSSynth, Chord, InstrumentTimbre
 from psynet.modular_page import PushButtonControl, AudioRecordControl, MusicNotationPrompt
@@ -17,10 +17,8 @@ from psynet.timeline import Timeline, Module, CodeBlock, Event, ProgressDisplay,
 from psynet.trial.static import StaticTrial, StaticNode, StaticTrialMaker
 from psynet.utils import get_logger
 
-from dallinger import db
-
-from .utils import midi_to_abc
 from . import singing_analysis
+from .utils import midi_to_abc
 
 logger = get_logger()
 
@@ -250,8 +248,8 @@ def get_voice_type():
 
 class Exp(psynet.experiment.Experiment):
     label = "Vertical processing experiment"
-
-    asset_storage = DebugStorage()
+    initial_recruitment_size = 1
+    asset_storage = LocalStorage()
 
     timeline = Timeline(
         NoConsent(),
@@ -274,9 +272,3 @@ class Exp(psynet.experiment.Experiment):
         ),
         SuccessfulEndPage(),
     )
-
-    def __init__(self, session=None):
-        super().__init__(session)
-        self.initial_recruitment_size = (
-            1
-        )
