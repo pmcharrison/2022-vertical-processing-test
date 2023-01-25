@@ -34,6 +34,3 @@ num_dynos_worker = 1
 redis_size = hobby-dev
 host = 0.0.0.0
 clock_on = true
-
-docker_image_base_name = registry.gitlab.developers.cam.ac.uk/mus/cms/psynet-experiment-images
-docker_image_name = registry.gitlab.developers.cam.ac.uk/mus/cms/psynet-experiment-images@sha256:9cdf3a66165d5032b26c17516f8955faa06be9b249b8aeb2cab597301cea78b5
