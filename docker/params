@@ -31,6 +31,7 @@ export PSYNET_EXPORT_STORAGE="${HOME}"/psynet-data/export
 
 if [[ "$PLATFORM" == "linux" ]]; then
   echo "Skipping SSH AUTH setup on Linux"
+  SSH_VOLUME=~/.ssh:/root/.ssh
 #  SSH_VOLUME="$(readlink -f "$SSH_AUTH_SOCK"):/ssh-agent"
 elif [[ "$PLATFORM" == "macos" ]]; then
   SSH_VOLUME=~/.ssh:/root/.ssh
