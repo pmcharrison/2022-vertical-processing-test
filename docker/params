@@ -30,7 +30,8 @@ export PSYNET_DEBUG_STORAGE="${HOME}"/psynet-debug-storage
 export PSYNET_EXPORT_STORAGE="${HOME}"/psynet-data/export
 
 if [[ "$PLATFORM" == "linux" ]]; then
-  SSH_VOLUME="$(readlink -f "$SSH_AUTH_SOCK"):/ssh-agent"
+  echo "Skipping SSH AUTH setup on Linux"
+#  SSH_VOLUME="$(readlink -f "$SSH_AUTH_SOCK"):/ssh-agent"
 elif [[ "$PLATFORM" == "macos" ]]; then
   SSH_VOLUME=~/.ssh:/root/.ssh
 elif [[ "$PLATFORM" == "windows" ]]; then
