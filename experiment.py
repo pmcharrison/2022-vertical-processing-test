@@ -18,6 +18,7 @@ from psynet.trial.static import StaticTrial, StaticNode, StaticTrialMaker
 from psynet.utils import get_logger
 
 from . import singing_analysis
+from .consent import consent
 from .utils import midi_to_abc
 
 logger = get_logger()
@@ -252,7 +253,7 @@ class Exp(psynet.experiment.Experiment):
     asset_storage = LocalStorage()
 
     timeline = Timeline(
-        NoConsent(),
+        consent,
         InfoPage(
             "Welcome to the experiment!",
             time_estimate=5,
