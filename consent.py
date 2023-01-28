@@ -35,10 +35,12 @@ with information_and_consent:
         """
     )
 
-consent = Module(
-    "consent",
-    join(
-        NoConsent(),
-        InfoPage(information_and_consent, time_estimate=30),
+
+def consent():
+    return Module(
+        "consent",
+        join(
+            NoConsent(),
+            InfoPage(information_and_consent, time_estimate=30),
+        )
     )
-)

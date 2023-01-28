@@ -10,6 +10,8 @@ import psynet.experiment
 from dallinger import db
 from psynet.asset import ExperimentAsset, Asset, LocalStorage
 from psynet.consent import NoConsent
+from psynet.demography.general import Age, Gender
+from psynet.demography.gmsi import GMSI
 from psynet.js_synth import JSSynth, Chord, InstrumentTimbre
 from psynet.modular_page import PushButtonControl, AudioRecordControl, MusicNotationPrompt, SurveyJSControl, \
     RadioButtonControl, AudioMeterControl
@@ -19,9 +21,11 @@ from psynet.trial.static import StaticTrial, StaticNode, StaticTrialMaker
 from psynet.utils import get_logger
 
 from dominate import tags
+from scipy import stats
 
 from . import singing_analysis
 from .consent import consent
+from .scoring import score_response
 from .utils import midi_to_abc
 
 logger = get_logger()
@@ -39,7 +43,8 @@ with open("chord_types.json") as file:
     ]
 
 
-TRIALS_PER_PARTICIPANT = len(NODES)
+TRIALS_PER_PARTICIPANT = 3 # for testing
+# TRIALS_PER_PARTICIPANT = len(NODES)
 
 
 PRACTICE_NODES = [
@@ -70,7 +75,7 @@ VOCAL_RANGES = {
 
 
 class VerticalProcessingTrial(StaticTrial):
-    time_estimate = 5
+    time_estimate = 15
 
     def finalize_definition(self, definition, experiment, participant):
         n_pitches = len(definition["chord_type"])
@@ -164,18 +169,44 @@ class VerticalProcessingTrial(StaticTrial):
         )
 
     wait_for_feedback = True
-    show_running_total = False
+    show_running_score = False
 
     def show_feedback(self, experiment, participant):
+        score = self.score
+        assert isinstance(score, (float, int))
+
+        max_score = len(self.definition["chord_type"])
+
+        if score == max_score:
+            alert_type = "success"
+        elif score == 0:
+            alert_type = "danger"
+        else:
+            alert_type = "primary"
+
         text = tags.div()
         with text:
-            tags.p(f"You scored {self.var.score} out of 5.")
+            tags.attr(cls=f"alert alert-{alert_type}")
+            tags.p(
+                "You scored ",
+                tags.strong(score),
+                " out of a possible ",
+                tags.strong(max_score),
+                " points.",
+            )
 
-            if self.show_running_total:
-                tags.p(f"Your running total is {participant.var.running_total}.")
+            if self.show_running_score:
+                running_score = self.calculate_running_score(participant)
+                assert isinstance(running_score, (float, int))
+
+                tags.p(
+                    "Your total score so far is ",
+                    tags.strong(running_score),
+                    "."
+                )
 
             target_pitches_text, sung_pitches_text, abc = self.get_notation_for_feedback()
-            tags.p(f"Target pitches = {target_pitches_text}, sung pitches = {sung_pitches_text}.")
+            # tags.p(f"Target pitches = {target_pitches_text}, sung pitches = {sung_pitches_text}.")
 
         return ModularPage(
             "show_feedback",
@@ -254,8 +285,29 @@ class VerticalProcessingTrial(StaticTrial):
             )
             plot.deposit()
 
+    def score_answer(self, answer, definition):
+        return score_response( 
+            target=definition["target_pitches"],
+            response=self.var.sung_pitches,
+        )
+
+    def calculate_running_score(self, participant):
+        trials = self.__class__.query.filter_by(participant_id=participant.id).all()
+        return sum([trial.score for trial in trials if trial.score is not None])
+
+
+class PracticeVerticalProcessingTrial(VerticalProcessingTrial):
+    show_running_score = False
+
+
+class MainVerticalProcessingTrial(VerticalProcessingTrial):
+    show_running_score = True
+
 
 def requirements():
+    # import pydevd_pycharm
+    # pydevd_pycharm.settrace('localhost', port=12345, stdoutToServer=True, stderrToServer=True)
+
     html = tags.div()
     with html:
         tags.p(
@@ -263,11 +315,10 @@ def requirements():
             "If you can, please wear headphones or earphones for the best experience; "
             "however, we ask that you do not wear wireless headphones/earphones (e.g. EarPods), "
             "because they often introduce recording issues. "
-            "If you are not able to satisfy these requirements currently, please do not take the test now "
-            "but instead come back when you can."
+            "If you are not able to satisfy these requirements currently, please try again later."
         )
 
-    return InfoPage(requirements, time_estimate=15)
+    return InfoPage(html, time_estimate=15)
 
 
 def overview():
@@ -276,11 +327,10 @@ def overview():
         tags.p("Thank you again for participating in this experiment. Your contribution is really appreciated!")
 
         tags.p(
-            "The experiment has several components, which in total should take about 20 minutes. "
-            "As part of it you will get your own 'vertical-processing ability' score, which you can compare "
-            "with other people who took this test. "
-            "These are the different components: "
+            "The experiment has several components, which in total should take about 20 minutes:"
         )
+
+        # tags.p("The sesssion will ")
 
         tags.ol(
             tags.li("Equipment test;"),
@@ -291,8 +341,8 @@ def overview():
         )
 
         tags.p(
-            "By completing all of these components you will help us to acquire the best data for the further "
-            "development of this test."
+            "At the end you will get your own 'vertical-processing ability' score, which you can compare "
+            "with other people who took this test. "
         )
 
     return InfoPage(html, time_estimate=20)
@@ -351,34 +401,41 @@ def volume_calibration():
     return ModularPage(
         "volume_calibration",
         JSSynth(
-            "Please adjust your computer volume to a comfortable level where you can hear the chord clearly."
-            [
+            "Please adjust your computer volume to a comfortable level where you can hear the chord clearly.",
+            sequence=[
                 Chord(
                     [60, 64, 67],
-                    duration=100000,
+                    duration=3,
                 )
-            ],
+            ] * 1000,
             timbre=InstrumentTimbre("flute"),
-        )
+        ),
+        time_estimate=10,
     )
 
 
 def mic_test():
-    return ModularPage(
-        "mic_test",
-        tags.div(
-            tags.p(
-                "Please try singing into the microphone. If your microphone is set up correctly, "
-                "you should see the audio meter move. If it is not working, please update your audio settings and "
-                "try again."
-            ),
-            tags.p(tags.strong("Tips:")),
+    html = tags.div()
+
+    with html:
+        tags.p(
+            "Please try singing into the microphone. If your microphone is set up correctly, "
+            "you should see the audio meter move. If it is not working, please update your audio settings and "
+            "try again."
+        )
+
+        with tags.div():
+            tags.attr(cls="alert alert-primary")
             tags.p(tags.ul(
                 tags.li("If you see a dialog box requesting microphone permissions, please click 'Accept'."),
-                tags.li("If you think refreshing this page might help, do give it a try."),
-            )),
-        ),
+                tags.li("You can refresh the page if you like."),
+            ))
+
+    return ModularPage(
+        "mic_test",
+        html,
         AudioMeterControl(),
+        time_estimate=10,
     )
 
 
@@ -394,6 +451,11 @@ def instructions():
             "Your task is to sing these notes into the microphone, starting with the lowest and finishing with "
             "the highest."
         )
+
+    return InfoPage(
+        html,
+        time_estimate=15,
+    )
 
 
 def get_voice_type():
@@ -425,23 +487,65 @@ def get_voice_type():
     )
 
 
-def main():
-    return StaticTrialMaker(
-        id_="practice_trials",
-        trial_class=VerticalProcessingTrial,
-        nodes=PRACTICE_NODES,
-        expected_trials_per_participant=2,
-        max_trials_per_participant=2,
-        allow_repeated_nodes=False,
-        n_repeat_trials=0,
-        balance_across_nodes=False,
+class VerticalProcessingTrialMaker(StaticTrialMaker):
+    pass
+
+
+class PracticeVerticalProcessingTrialMaker(VerticalProcessingTrialMaker):
+    pass
+
+
+class MainVerticalProcessingTrialMaker(VerticalProcessingTrialMaker):
+    def get_end_feedback_passed_page(self, score):
+        all_results = self.get_all_participant_performance_check_results()
+        all_scores = [results["score"] for results in all_results if "score" in results]
+        percentile = stats.percentileofscore(all_scores, score)
+
+        html = tags.div()
+        with html:
+            tags.p(
+                "You finished the singing experiment! ",
+                "Your total score was ",
+                tags.strong(f"{score}"),
+                f". This puts you in the top {100 - percentile:.0f}% of people who took the test so far."
+            )
+
+
+def practice():
+    html = tags.div()
+
+    with html:
+        tags.p(
+            "We're now ready to try a couple of practice trials. "
+            "Your score won't be counted here, it's just a chance to experience the paradigm."
+        )
+        with tags.div():
+            tags.attr(cls="alert alert-warning")
+            tags.strong("Please remember the following:")
+            with tags.ul():
+                tags.li("Sing each note to 'ta';")
+                tags.li("Sing at a moderate tempo;")
+                tags.li("Sing not too legato, not too staccato.")
+
+    return join(
+        InfoPage(html, time_estimate=5),
+        StaticTrialMaker(
+            id_="practice_vertical_processing_trials",
+            trial_class=PracticeVerticalProcessingTrial,
+            nodes=PRACTICE_NODES,
+            expected_trials_per_participant=2,
+            max_trials_per_participant=2,
+            allow_repeated_nodes=False,
+            n_repeat_trials=0,
+            balance_across_nodes=False,
+        )
     )
 
 
 def main():
     return StaticTrialMaker(
-        id_="main_trials",
-        trial_class=VerticalProcessingTrial,
+        id_="main_vertical_processing_trials",
+        trial_class=MainVerticalProcessingTrial,
         nodes=NODES,
         expected_trials_per_participant=TRIALS_PER_PARTICIPANT,
         max_trials_per_participant=TRIALS_PER_PARTICIPANT,
@@ -450,6 +554,72 @@ def main():
         n_repeat_trials=0,
         balance_across_nodes=False,
         target_n_participants=50,
+        check_performance_at_end=True,
+    )
+
+
+def questionnaire():
+    return join(
+        InfoPage(
+            tags.p(
+                "Before we finish, we just have a few more questions to ask you. ",
+                "They should only take a couple of minutes to complete.",
+            ),
+            time_estimate=5,
+        ),
+        Age(),
+        Gender(),
+        GMSI(subscales=[
+            "Musical Training",
+            "Perceptual Abilities",
+            "Singing Abilities"
+        ]),
+        extra_questions(),
+    )
+
+
+def extra_questions():
+    return ModularPage(
+        "extra_questions",
+        prompt="",
+        control=SurveyJSControl({
+            # "logoPosition": "right",
+            "pages": [
+                {
+                    "name": "page1",
+                    "elements": [
+                        {
+                         "type": "radiogroup",
+                         "name": "absolute_pitch",
+                         "title": "Do you have absolute pitch (a.k.a. perfect pitch)?",
+                         "isRequired": True,
+                         "choices": [
+                              {
+                               "value": "yes",
+                               "text": "Yes"
+                              },
+                              {
+                               "value": "no",
+                               "text": "No"
+                              },
+                              {
+                               "value": "not_known",
+                               "text": "I don't know"
+                              }
+                         ],
+                         # "showOtherItem": True
+                        }
+                    ]
+                }
+            ],
+            # "showTitle": false,
+            # "showQuestionNumbers": "off"
+            }),
+        time_estimate=20,
+        bot_response={
+            "absolute_pitch": "Yes"
+        },
+        save_answer="extra_questions",
     )
 
 
@@ -462,15 +632,17 @@ class Exp(psynet.experiment.Experiment):
     }
 
     timeline = Timeline(
-        requirements(),
-        consent(),
-        overview(),
-        equipment_test(),
+        NoConsent(),
+        # requirements(),
+        # consent(),
+        # overview(),
+        # equipment_test(),
         get_voice_type(),
-        # To do - volume calibration, mic test, instructions, practice,
         instructions(),
         practice(),
         main(),
         questionnaire(),
         SuccessfulEndPage(),
     )
+
+    test_num_bots = 3
