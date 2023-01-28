@@ -43,7 +43,7 @@ with open("chord_types.json") as file:
     ]
 
 
-TRIALS_PER_PARTICIPANT = 1 # for testing
+TRIALS_PER_PARTICIPANT = 5 # for testing
 # TRIALS_PER_PARTICIPANT = len(NODES)
 
 
