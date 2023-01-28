@@ -115,10 +115,16 @@ class VerticalProcessingTrial(StaticTrial):
             for timbre_label in self.definition["timbre"]
         }
 
+        prompt = tags.div()
+
+        with prompt:
+            self.display_trial_position_alert()
+            tags.p("Sing back the notes in the chord in any order.")
+
         return ModularPage(
             "singing",
             JSSynth(
-                "Sing back the notes in the chord in any order.",
+                prompt,
                 [
                     Chord(
                         self.definition["target_pitches"],
@@ -168,8 +174,19 @@ class VerticalProcessingTrial(StaticTrial):
             )
         )
 
+    def display_trial_position_alert(self):
+        with tags.em():
+            # tags.attr(cls="alert alert-secondary")
+            tags.p(
+                "Trial ",
+                tags.strong(self.position + 1),
+                " out of ",
+                tags.strong(TRIALS_PER_PARTICIPANT),
+            )
+
     wait_for_feedback = True
     show_running_score = False
+    should_display_trial_position_alert = None
 
     def show_feedback(self, experiment, participant):
         score = self.score
@@ -186,24 +203,28 @@ class VerticalProcessingTrial(StaticTrial):
 
         text = tags.div()
         with text:
-            tags.attr(cls=f"alert alert-{alert_type}")
-            tags.p(
-                "You scored ",
-                tags.strong(score),
-                " out of a possible ",
-                tags.strong(max_score),
-                " points.",
-            )
+            if self.should_display_trial_position_alert:
+                self.display_trial_position_alert()
 
-            if self.show_running_score:
-                running_score = self.calculate_running_score(participant)
-                assert isinstance(running_score, (float, int))
-
+            with tags.div():
+                tags.attr(cls=f"alert alert-{alert_type}")
                 tags.p(
-                    "Your total score so far is ",
-                    tags.strong(running_score),
-                    "."
+                    "You scored ",
+                    tags.strong(score),
+                    " out of a possible ",
+                    tags.strong(max_score),
+                    " points.",
                 )
+
+                if self.show_running_score:
+                    running_score = self.calculate_running_score(participant)
+                    assert isinstance(running_score, (float, int))
+
+                    tags.p(
+                        "Your total score so far is ",
+                        tags.strong(running_score),
+                        "."
+                    )
 
             target_pitches_text, sung_pitches_text, abc = self.get_notation_for_feedback()
             # tags.p(f"Target pitches = {target_pitches_text}, sung pitches = {sung_pitches_text}.")
@@ -298,10 +319,12 @@ class VerticalProcessingTrial(StaticTrial):
 
 class PracticeVerticalProcessingTrial(VerticalProcessingTrial):
     show_running_score = False
+    should_display_trial_position_alert = False
 
 
 class MainVerticalProcessingTrial(VerticalProcessingTrial):
     show_running_score = True
+    should_display_trial_position_alert = True
 
 
 def requirements():
@@ -448,8 +471,7 @@ def instructions():
         )
         tags.p(
             "In each trial of the experiment you will be played a chord comprising multiple notes. "
-            "Your task is to sing these notes into the microphone, starting with the lowest and finishing with "
-            "the highest."
+            "Your task is to sing these notes into the microphone in any order."
         )
 
     return InfoPage(
@@ -543,18 +565,38 @@ def practice():
 
 
 def main():
-    return StaticTrialMaker(
-        id_="main_vertical_processing_trials",
-        trial_class=MainVerticalProcessingTrial,
-        nodes=NODES,
-        expected_trials_per_participant=TRIALS_PER_PARTICIPANT,
-        max_trials_per_participant=TRIALS_PER_PARTICIPANT,
-        recruit_mode="n_participants",
-        allow_repeated_nodes=False,
-        n_repeat_trials=0,
-        balance_across_nodes=False,
-        target_n_participants=50,
-        check_performance_at_end=True,
+    html = tags.div()
+
+    with html:
+        tags.p(
+            "We're now ready to start the main experiment. "
+            "You'll take ",
+            tags.strong(TRIALS_PER_PARTICIPANT),
+            " trials in total. Good luck!"
+        )
+        with tags.div():
+            tags.attr(cls="alert alert-warning")
+            tags.strong("Remember:")
+            with tags.ul():
+                tags.li("Sing each note to 'ta';")
+                tags.li("Sing at a moderate tempo;")
+                tags.li("Sing not too legato, not too staccato.")
+
+    return join(
+        InfoPage(html, time_estimate=5),
+        StaticTrialMaker(
+            id_="main_vertical_processing_trials",
+            trial_class=MainVerticalProcessingTrial,
+            nodes=NODES,
+            expected_trials_per_participant=TRIALS_PER_PARTICIPANT,
+            max_trials_per_participant=TRIALS_PER_PARTICIPANT,
+            recruit_mode="n_participants",
+            allow_repeated_nodes=False,
+            n_repeat_trials=0,
+            balance_across_nodes=False,
+            target_n_participants=50,
+            check_performance_at_end=True,
+        )
     )
 
 
