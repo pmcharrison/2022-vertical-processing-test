@@ -43,7 +43,7 @@ with open("chord_types.json") as file:
     ]
 
 
-TRIALS_PER_PARTICIPANT = 3 # for testing
+TRIALS_PER_PARTICIPANT = 1 # for testing
 # TRIALS_PER_PARTICIPANT = len(NODES)
 
 
@@ -518,9 +518,12 @@ class PracticeVerticalProcessingTrialMaker(VerticalProcessingTrialMaker):
 
 
 class MainVerticalProcessingTrialMaker(VerticalProcessingTrialMaker):
+    give_end_feedback_passed = True
+    performance_check_type = "score"
+
     def get_end_feedback_passed_page(self, score):
         all_results = self.get_all_participant_performance_check_results()
-        all_scores = [results["score"] for results in all_results if "score" in results]
+        all_scores = [results["score"] for results in all_results if results["score"] is not None]
         percentile = stats.percentileofscore(all_scores, score)
 
         html = tags.div()
@@ -531,6 +534,8 @@ class MainVerticalProcessingTrialMaker(VerticalProcessingTrialMaker):
                 tags.strong(f"{score}"),
                 f". This puts you in the top {100 - percentile:.0f}% of people who took the test so far."
             )
+
+        return InfoPage(html, time_estimate=7.5)
 
 
 def practice():
@@ -551,7 +556,7 @@ def practice():
 
     return join(
         InfoPage(html, time_estimate=5),
-        StaticTrialMaker(
+        PracticeVerticalProcessingTrialMaker(
             id_="practice_vertical_processing_trials",
             trial_class=PracticeVerticalProcessingTrial,
             nodes=PRACTICE_NODES,
@@ -584,7 +589,7 @@ def main():
 
     return join(
         InfoPage(html, time_estimate=5),
-        StaticTrialMaker(
+        MainVerticalProcessingTrialMaker(
             id_="main_vertical_processing_trials",
             trial_class=MainVerticalProcessingTrial,
             nodes=NODES,
@@ -601,12 +606,21 @@ def main():
 
 
 def questionnaire():
+    introduction_text = tags.div()
+    with introduction_text:
+        tags.p(
+            "Before we finish, we just have a few more questions to ask you. ",
+            "They should only take a couple of minutes to complete.",
+        )
+        tags.p(
+            "None of these questions are about personal or sensitive topics. "
+            "However, if you decide that you feel uncomfortable answering any of the questions, "
+            "you may close the window and your preceding data will still be saved."
+        )
+
     return join(
         InfoPage(
-            tags.p(
-                "Before we finish, we just have a few more questions to ask you. ",
-                "They should only take a couple of minutes to complete.",
-            ),
+            introduction_text,
             time_estimate=5,
         ),
         Age(),
@@ -675,10 +689,10 @@ class Exp(psynet.experiment.Experiment):
 
     timeline = Timeline(
         NoConsent(),
-        # requirements(),
-        # consent(),
-        # overview(),
-        # equipment_test(),
+        requirements(),
+        consent(),
+        overview(),
+        equipment_test(),
         get_voice_type(),
         instructions(),
         practice(),
@@ -688,3 +702,4 @@ class Exp(psynet.experiment.Experiment):
     )
 
     test_num_bots = 3
+
