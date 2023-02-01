@@ -328,9 +328,6 @@ class MainVerticalProcessingTrial(VerticalProcessingTrial):
 
 
 def requirements():
-    # import pydevd_pycharm
-    # pydevd_pycharm.settrace('localhost', port=12345, stdoutToServer=True, stderrToServer=True)
-
     html = tags.div()
     with html:
         tags.p(
@@ -688,7 +685,6 @@ class Exp(psynet.experiment.Experiment):
     }
 
     timeline = Timeline(
-        NoConsent(),
         requirements(),
         consent(),
         overview(),
