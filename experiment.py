@@ -181,9 +181,9 @@ class VerticalProcessingTrial(StaticTrial):
                 "Trial ",
                 tags.strong(self.position + 1),
                 " out of ",
-                tags.strong(TRIALS_PER_PARTICIPANT),
+                tags.strong(self.expected_n_trials),
             )
-
+    expected_n_trials = None
     wait_for_feedback = True
     show_running_score = False
     should_display_trial_position_alert = None
@@ -320,11 +320,13 @@ class VerticalProcessingTrial(StaticTrial):
 class PracticeVerticalProcessingTrial(VerticalProcessingTrial):
     show_running_score = False
     should_display_trial_position_alert = False
+    expected_n_trials = 2
 
 
 class MainVerticalProcessingTrial(VerticalProcessingTrial):
     show_running_score = True
     should_display_trial_position_alert = True
+    expected_n_trials = TRIALS_PER_PARTICIPANT
 
 
 def requirements():
