@@ -14,7 +14,7 @@ from psynet.demography.general import Age, Gender
 from psynet.demography.gmsi import GMSI
 from psynet.js_synth import JSSynth, Chord, InstrumentTimbre
 from psynet.modular_page import PushButtonControl, AudioRecordControl, MusicNotationPrompt, SurveyJSControl, \
-    RadioButtonControl, AudioMeterControl
+    RadioButtonControl, AudioMeterControl, TextControl
 from psynet.page import InfoPage, SuccessfulEndPage, ModularPage, VolumeCalibration
 from psynet.timeline import Timeline, Module, CodeBlock, Event, ProgressDisplay, ProgressStage, join
 from psynet.trial.static import StaticTrial, StaticNode, StaticTrialMaker
@@ -25,6 +25,7 @@ from scipy import stats
 
 from . import singing_analysis
 from .consent import consent
+from .instructions import instructions
 from .scoring import score_response
 from .utils import midi_to_abc
 
@@ -81,8 +82,8 @@ class VerticalProcessingTrial(StaticTrial):
         n_pitches = len(definition["chord_type"])
         definition["chord_duration"] = 3.5  # How long is the chord? (seconds)
         definition["roving_radius"] = 1.0  # The centre pitch of the chord roves +/- this value in semitones
-        definition["silence_duration"] = 0.5  # How long do we wait between the chord and the recording?
-        definition["record_duration"] = 1.0 + n_pitches * 1.25  # How long is the recording?
+        definition["silence_duration"] = 1.0  # How long do we wait between the chord and the recording?
+        definition["record_duration"] = 1.0 + n_pitches * 2.0  # How long is the recording?
 
         # definition["timbre"] = ["piano" for _ in definition["chord_type"]]
 
@@ -461,23 +462,6 @@ def mic_test():
     )
 
 
-def instructions():
-    html = tags.div()
-    with html:
-        tags.p(
-            "This experiment tests your ability to 'hear out' the notes in musical chords. "
-            "This is an important skill in many musical contexts from music performance to analytic listening."
-        )
-        tags.p(
-            "In each trial of the experiment you will be played a chord comprising multiple notes. "
-            "Your task is to sing these notes into the microphone in any order."
-        )
-
-    return InfoPage(
-        html,
-        time_estimate=15,
-    )
-
 
 def get_voice_type():
     return Module(
@@ -644,37 +628,86 @@ def extra_questions():
                     "name": "page1",
                     "elements": [
                         {
-                         "type": "radiogroup",
-                         "name": "absolute_pitch",
-                         "title": "Do you have absolute pitch (a.k.a. perfect pitch)?",
-                         "isRequired": True,
-                         "choices": [
-                              {
-                               "value": "yes",
-                               "text": "Yes"
-                              },
-                              {
-                               "value": "no",
-                               "text": "No"
-                              },
-                              {
-                               "value": "not_known",
-                               "text": "I don't know"
-                              }
-                         ],
-                         # "showOtherItem": True
+                            "type": "text",
+                            "name": "country_of_residence",
+                            "title": "What is your current country of residence?"
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "absolute_pitch",
+                            "title": "Do you have absolute pitch (a.k.a. perfect pitch)?",
+                            "isRequired": True,
+                            "choices": [
+                                {
+                                    "value": "yes",
+                                    "text": "Yes"
+                                },
+                                {
+                                    "value": "no",
+                                    "text": "No"
+                                },
+                                {
+                                    "value": "not_known",
+                                    "text": "I don't know"
+                                }
+                            ],
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "chord_hearing",
+                            "title": "What do you hear when you listen to chords? Choose the option which is the best fit.",
+                            "choices": [
+                                {
+                                    "value": "I hear all the notes individually",
+                                    "text": "I hear all the notes individually"
+                                },
+                                {
+                                    "value": "I can pick out a few notes within the chord but probably not all",
+                                    "text": "I can pick out a few notes within the chord but probably not all"
+                                },
+                                {
+                                    "value": "I can pick out the top and bottom notes but nothing else",
+                                    "text": "I can pick out the top and bottom notes but nothing else"
+                                },
+                                {
+                                    "value": "I hear the chord as a single unit and cannot pick out any individual notes",
+                                    "text": "I hear the chord as a single unit and cannot pick out any individual notes"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "text",
+                            "name": "hearing_conditions",
+                            "title": "Do you have any conditions which affect your ability to hear or process sound (for example: tinnitus, auditory processing disorder, deafness)? Please only put conditions that you have been clinically diagnosed with, and leave the box blank if you have none."
+                        },
+                        {
+                            "type": "text",
+                            "name": "any_other_information",
+                            "title": "Is there any other information on this topic that you believe is relevant (for example, conditions with which you are not officially diagnosed)? Leave the box blank if not."
                         }
                     ]
                 }
-            ],
-            # "showTitle": false,
-            # "showQuestionNumbers": "off"
+            ]
             }),
         time_estimate=20,
         bot_response={
             "absolute_pitch": "Yes"
         },
         save_answer="extra_questions",
+    )
+
+
+def debrief_and_feedback():
+    return ModularPage(
+        "debrief_and_feedback",
+        """
+        Thank you for participating in this study. Your data you have submitted will be used to develop this test
+        further, hopefully to a point whereby this test can be used in future studies into more specific areas of
+        interest. Your data will be kept strictly anonymous through all stages of this development. If you would like to
+        provide feedback on your experience with this test, please type it in the box below.
+        """,
+        TextControl(one_line=False),
+        time_estimate=5,
     )
 
 
@@ -696,6 +729,7 @@ class Exp(psynet.experiment.Experiment):
         practice(),
         main(),
         questionnaire(),
+        debrief_and_feedback(),
         SuccessfulEndPage(),
     )
 
