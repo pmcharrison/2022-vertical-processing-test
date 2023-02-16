@@ -5,12 +5,13 @@
 # If you want to ensure that you have the latest version of the branch, it's best to pin
 # to a particular commit.
 #
-dallinger@git+https://github.com/Dallinger/Dallinger.git@a2c721a868bd21f93be0fb37c619af44fd92cbc2#egg=dallinger
+# dallinger@git+https://github.com/Dallinger/Dallinger.git@a2c721a868bd21f93be0fb37c619af44fd92cbc2#egg=dallinger
 
 # Example pinning a particular version of PsyNet
 # psynet@git+https://gitlab.com/PsyNetDev/PsyNet#egg=psynet
 
-psynet@git+https://gitlab.com/PsyNetDev/PsyNet@1c1cafb721a39477004e39f92fe4d0d8e213a8bf#egg=psynet
+psynet@git+https://gitlab.com/PsyNetDev/PsyNet@500b749eb988cd037e16908c93895390fa97b8e6#egg=psynet
+dallinger==9.4.2
 sing4me@git+https://sing4me:Kyha1uWpM91nS1w4tA1g@gitlab.com/computational-audition-lab/sing4me.git@91723f271e45584c93cf1acdfb2ff00f56c12738#egg=sing4me
 music21==8.1.0
 pytest

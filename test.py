@@ -16,7 +16,7 @@ import os
 import pytest
 
 # from voice_leading import nonbijective_vl
-from scoring import score_response
+from .scoring import score_response
 # from experiment import VerticalProcessingTrial
 
 pytest_plugins = ["pytest_dallinger", "pytest_psynet"]

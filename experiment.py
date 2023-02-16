@@ -6,23 +6,21 @@ import tempfile
 import time
 from statistics import mean
 
-import psynet.experiment
 from dallinger import db
+from dominate import tags
+from scipy import stats
+
+import psynet.experiment
 from psynet.asset import ExperimentAsset, Asset, LocalStorage
-from psynet.consent import NoConsent
 from psynet.demography.general import Age, Gender
 from psynet.demography.gmsi import GMSI
 from psynet.js_synth import JSSynth, Chord, InstrumentTimbre
 from psynet.modular_page import PushButtonControl, AudioRecordControl, MusicNotationPrompt, SurveyJSControl, \
     RadioButtonControl, AudioMeterControl, TextControl
-from psynet.page import InfoPage, SuccessfulEndPage, ModularPage, VolumeCalibration
+from psynet.page import InfoPage, SuccessfulEndPage, ModularPage
 from psynet.timeline import Timeline, Module, CodeBlock, Event, ProgressDisplay, ProgressStage, join
 from psynet.trial.static import StaticTrial, StaticNode, StaticTrialMaker
 from psynet.utils import get_logger
-
-from dominate import tags
-from scipy import stats
-
 from . import singing_analysis
 from .consent import consent
 from .instructions import instructions
@@ -44,7 +42,7 @@ with open("chord_types.json") as file:
     ]
 
 
-TRIALS_PER_PARTICIPANT = 5 # for testing
+TRIALS_PER_PARTICIPANT = 15 # for testing
 # TRIALS_PER_PARTICIPANT = len(NODES)
 
 
@@ -266,7 +264,7 @@ class VerticalProcessingTrial(StaticTrial):
                 # This is some debugging code that I inserted in order to track a rare error ####
                 # It can be ignored unless this error recurs again in the future! ####
                 logger.info(
-                    "Failed to find self.assets['stimulus']. This error happens occasionally "
+                    "Failed to find self.assets['singing']. This error happens occasionally "
                     "and we haven't been able to debug it yet. It may be some kind of race condition. "
                     "We'll now print some debugging information to try and help solve this mystery. "
                 )
@@ -277,7 +275,7 @@ class VerticalProcessingTrial(StaticTrial):
 
                 logger.info("What happens if we refresh the object?")
                 db.session.refresh(self)
-                logger.info(self.assets["stimulus"])
+                logger.info(self.assets)
 
                 logger.info("What happens if we perform a fresh database query?")
                 asset = Asset.query.filter_by(trial_id=self.id).all()
@@ -714,6 +712,7 @@ def debrief_and_feedback():
 class Exp(psynet.experiment.Experiment):
     label = "Vertical processing experiment"
     asset_storage = LocalStorage()
+    # asset_storage = S3Storage("psynet-tests", "audio-record")
 
     variables = {
         "show_bonus": False
@@ -733,5 +732,5 @@ class Exp(psynet.experiment.Experiment):
         SuccessfulEndPage(),
     )
 
-    test_num_bots = 3
+    test_num_bots = 1
 
