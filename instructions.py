@@ -29,6 +29,7 @@ def page_1():
             Press 'Next' to hear an example.
             """
         )
+    return InfoPage(html, time_estimate=7.5)
 
 
 def page_2():
