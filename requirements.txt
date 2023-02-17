@@ -10,7 +10,7 @@
 # Example pinning a particular version of PsyNet
 # psynet@git+https://gitlab.com/PsyNetDev/PsyNet#egg=psynet
 
-psynet@git+https://gitlab.com/PsyNetDev/PsyNet@e5f457afbcafcaa2a2a9cae2c0fbdd1ee80ec506#egg=psynet
+psynet@git+https://gitlab.com/PsyNetDev/PsyNet@586d160d6696e7f1f7e0fe1e08fc9a20ec11e30f#egg=psynet
 dallinger@git+https://github.com/Dallinger/Dallinger.git@1719e7c8a7710b4e7c7a00293a8bbac5d5b6bc1b#egg=dallinger
 sing4me@git+https://sing4me:Kyha1uWpM91nS1w4tA1g@gitlab.com/computational-audition-lab/sing4me.git@91723f271e45584c93cf1acdfb2ff00f56c12738#egg=sing4me
 music21==8.1.0
