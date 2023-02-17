@@ -31,6 +31,8 @@ logger = get_logger()
 
 
 with open("chord_types.json") as file:
+    chord_types = json.load(file)
+
     NODES = [
         StaticNode(
             definition={
@@ -38,23 +40,21 @@ with open("chord_types.json") as file:
                 "timbre_type": "same",
             },
         )
-        for chord_type in json.load(file)
+        for chord_type in chord_types
+    ]
+
+    PRACTICE_NODES = [
+        StaticNode(
+            definition={
+                "chord_type": chord_type,
+                "timbre_type": "same",
+            }
+        )
+        for chord_type in chord_types if len(chord_type) == 2
     ]
 
 
-TRIALS_PER_PARTICIPANT = 15 # for testing
-# TRIALS_PER_PARTICIPANT = len(NODES)
-
-
-PRACTICE_NODES = [
-    StaticNode(
-        definition={
-            "chord_type": chord_type,
-            "timbre_type": "same",
-        }
-    )
-    for chord_type in [[0, 4], [0, 6]]
-]
+TRIALS_PER_PARTICIPANT = 15
 
 
 AVAILABLE_TIMBRES = [
@@ -375,8 +375,8 @@ def equipment_test():
         "equipment_test",
         volume_calibration(),
         audio_output_question(),
-        mic_test(),
         audio_input_question(),
+        mic_test(),
     )
 
 
@@ -408,8 +408,8 @@ def audio_input_question():
             labels=[
                 "Headphone microphone",
                 "Earphone microphone",
-                "Internal computer microphone",
-                "External computer microphone",
+                "A microphone inside your computer",
+                "An external microphone attached to your computer",
             ],
             show_free_text_option=True,
         ),
@@ -533,7 +533,7 @@ def practice():
             with tags.ul():
                 tags.li("Sing each note to 'ta';")
                 tags.li("Sing at a moderate tempo;")
-                tags.li("Sing not too legato, not too staccato.")
+                tags.li("Sing each note for 1-2 seconds and leave a small gap between each one.")
 
     return join(
         InfoPage(html, time_estimate=5),
@@ -566,7 +566,7 @@ def main():
             with tags.ul():
                 tags.li("Sing each note to 'ta';")
                 tags.li("Sing at a moderate tempo;")
-                tags.li("Sing not too legato, not too staccato.")
+                tags.li("Sing each note for 1-2 seconds and leave a small gap between each one.")
 
     return join(
         InfoPage(html, time_estimate=5),
@@ -634,7 +634,6 @@ def extra_questions():
                             "type": "radiogroup",
                             "name": "absolute_pitch",
                             "title": "Do you have absolute pitch (a.k.a. perfect pitch)?",
-                            "isRequired": True,
                             "choices": [
                                 {
                                     "value": "yes",

@@ -24,8 +24,8 @@ with information_and_consent:
         """
         You must be 18 or older to participate in this study. Your information and performance on the test will be kept strictly
         anonymous, and the recordings taken will only be used by the researchers – they will never be played in a public
-        setting. If there are any questions in the questionnaire that you wish not to answer, you may put ‘prefer not to answer’
-        in the response box. If you wish to stop taking the test at any time, please simply close the tab in which the test is
+        setting. If there are any questions in the questionnaire that you wish not to answer, you may simply omit them.
+        If you wish to stop taking the test at any time, please simply close the tab in which the test is
         open. Please only take the test once.
         """
     )

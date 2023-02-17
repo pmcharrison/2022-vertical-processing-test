@@ -19,7 +19,7 @@ def page_1():
             """
             You will hear a series of chords.
             After each chord, you will have to sing the notes in the chord back to the computer.
-            Please sing each note for 2 seconds to the syllable of 'ta'. 
+            Please sing each note for 1-2 seconds to the syllable of 'ta', leaving a small gap between each one. 
             When you've finished singing, press 'Next' to continue.
             """
         )
