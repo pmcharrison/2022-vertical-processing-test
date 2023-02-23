@@ -81,7 +81,7 @@ class VerticalProcessingTrial(StaticTrial):
         definition["chord_duration"] = 3.5  # How long is the chord? (seconds)
         definition["roving_radius"] = 1.0  # The centre pitch of the chord roves +/- this value in semitones
         definition["silence_duration"] = 1.0  # How long do we wait between the chord and the recording?
-        definition["record_duration"] = 1.0 + n_pitches * 2.0  # How long is the recording?
+        definition["record_duration"] = 1.0 + (3 * 2.0)  # How long is the recording?
 
         # definition["timbre"] = ["piano" for _ in definition["chord_type"]]
 
@@ -532,7 +532,6 @@ def practice():
             tags.strong("Please remember the following:")
             with tags.ul():
                 tags.li("Sing each note to 'ta';")
-                tags.li("Sing at a moderate tempo;")
                 tags.li("Sing each note for 1-2 seconds and leave a small gap between each one.")
 
     return join(
@@ -565,7 +564,6 @@ def main():
             tags.strong("Remember:")
             with tags.ul():
                 tags.li("Sing each note to 'ta';")
-                tags.li("Sing at a moderate tempo;")
                 tags.li("Sing each note for 1-2 seconds and leave a small gap between each one.")
 
     return join(
@@ -609,7 +607,8 @@ def questionnaire():
         GMSI(subscales=[
             "Musical Training",
             "Perceptual Abilities",
-            "Singing Abilities"
+            "Singing Abilities",
+            "Instrument",
         ]),
         extra_questions(),
     )
