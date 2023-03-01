@@ -533,6 +533,7 @@ def practice():
             with tags.ul():
                 tags.li("Sing each note to 'ta';")
                 tags.li("Sing each note for 1-2 seconds and leave a small gap between each one.")
+                tags.li("Try to avoid wobbling or sliding.")
 
     return join(
         InfoPage(html, time_estimate=5),
@@ -565,6 +566,7 @@ def main():
             with tags.ul():
                 tags.li("Sing each note to 'ta';")
                 tags.li("Sing each note for 1-2 seconds and leave a small gap between each one.")
+                tags.li("Try to avoid wobbling or sliding.")
 
     return join(
         InfoPage(html, time_estimate=5),
