@@ -300,6 +300,7 @@ class VerticalProcessingTrial(StaticTrial):
 
             plot = ExperimentAsset(
                 f_plot.name,
+                local_key="plot",
                 parent=self,
                 extension=".png",
             )
@@ -714,7 +715,7 @@ class Exp(psynet.experiment.Experiment):
     asset_storage = LocalStorage()
     # asset_storage = S3Storage("psynet-tests", "audio-record")
 
-    variables = {
+    config = {
         "show_bonus": False
     }
 
