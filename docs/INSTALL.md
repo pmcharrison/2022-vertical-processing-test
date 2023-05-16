@@ -53,6 +53,18 @@ We recommend using PyCharm for PsyNet experiments, specifically the Professional
 This is paid but academics can get an educational license for free.
 Download PyCharm from [this link](https://www.jetbrains.com/help/pycharm/installation-guide.html).
 
+*Windows users only*: You should configure PyCharm to use Unix-style line endings (LF) by default instead
+of Windows-style line endings (CLRF); otherwise your Docker scripts may not run.
+To do this, follow
+[these instructions from the JetBrains website](https://www.jetbrains.com/help/pycharm/configuring-line-endings-and-line-separators.html>):
+
+  1. Open PyCharm's settings.
+  2. Go to File | New Projects Setup | Settings (or Preferences) for New Projects | Editor | Code Style.
+  3. Set Line separator to 'Unix and macOS (\n)'.
+  4. If you are in a project already, you may wish to select the current project from the Scheme dropdown menu on this
+     same page and repeat the process of setting the line seperator.
+  5. Press OK.
+
 ### Git 
 
 If you want to develop your own experiment it's a good idea to use Git for version control.
@@ -172,3 +184,28 @@ Hint -- you might find that the option you need to select is called 'SVM mode'..
 
 If you see a message starting "failed to solve with frontend dockerfile.v0",
 you may want to try rebooting your computer and trying again.
+
+#### Invalid option name: pipefail
+
+If you see an error message like this when running a Docker command:
+
+```
+: command not found 2: 
+: command not found 4: 
+: invalid option name: set: pipefail
+```
+
+The problem is probably that your project has the wrong line endings;
+on Windows, if you are not configured correctly, then your files may end up
+with Windows-style line endings (CRLF) instead of Unix-style line endings (LF).
+To fix this, first follow the line-endings instructions described above for 
+setting up Git and PyCharm in Windows.
+Then select your project folder in the project pane, 
+and from the task bar select File | File Properties | Line Separators | LF - Unix and MacOS.
+Your command should now run without the error.
+
+#### A timeout occurred
+
+When starting Docker for Windows you might run into following error: "A timeout occured while waiting for a
+WSL integration agent to become ready". In that case, you may want to try installing
+an older version of Docker Desktop (e.g. 4.17.1).
