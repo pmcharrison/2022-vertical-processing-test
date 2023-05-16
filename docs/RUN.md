@@ -51,6 +51,28 @@ allows you to enter an interactive terminal. Note that this command does
 _not_ provide any console log filtering, because this could be quite confusing
 for debugging.
 
+## Remote debugging
+
+You can use PyCharm's remote debugger within this Docker-based PsyNet environment.
+To set this up, follow these instructions:
+
+1. Click Run > Edit Configurations in PyCharm.
+2. Create a new Python Debug Server configuration, and call it something like 'Dockerized Python debug server'.
+3. For IDE host name, enter `host.docker.internal`.
+4. For port, enter a port of your choice, for example `12345`.
+
+Now start this debug server via your PyCharm interface (this typically involves clicking on a green bug icon).
+This should display some code that looks something like this: 
+
+```python
+import pydevd_pycharm
+pydevd_pycharm.settrace('host.docker.internal', port=12345, stdoutToServer=True, stderrToServer=True)
+```
+
+Copy and paste this code into the part of the script that you want to debug, then run it.
+If all goes well, the PyCharm interpreter should activate once it reaches this code,
+and you can then explore the local state of the program.
+
 ## Advanced usage
 
 ### Running with local installations of PsyNet and Dallinger

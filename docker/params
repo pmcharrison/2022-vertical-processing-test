@@ -28,16 +28,4 @@ export PSYNET_LOCAL_DATA_PATH="${HOME}"/psynet-data
 export DALLINGER_LOCAL_PATH="${HOME}"/Dallinger
 export PSYNET_DEBUG_STORAGE="${HOME}"/psynet-debug-storage
 export PSYNET_EXPORT_STORAGE="${HOME}"/psynet-data/export
-
-if [[ "$PLATFORM" == "linux" ]]; then
-  echo "Skipping SSH AUTH setup on Linux"
-  SSH_VOLUME=~/.ssh:/root/.ssh
-#  SSH_VOLUME="$(readlink -f "$SSH_AUTH_SOCK"):/ssh-agent"
-elif [[ "$PLATFORM" == "macos" ]]; then
-  SSH_VOLUME=~/.ssh:/root/.ssh
-elif [[ "$PLATFORM" == "windows" ]]; then
-  SSH_VOLUME="$(readlink -f "$SSH_AUTH_SOCK"):/ssh-agent"
-else
-  echo "Unsupported operating system: ${PLATFORM}"
-  exit 1
-fi
+export SSH_VOLUME=~/.ssh:/root/.ssh

@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+touch "${HOME}/.dallingerconfig"
+
 . docker/params
 
 if [[ ${PSYNET_DEVELOPER_MODE:-} == "1" ]]; then
@@ -18,15 +20,15 @@ docker run \
   --name dallinger \
   --rm \
   -ti \
-  -u $(id -u "${USER}"):$(id -g "${USER}") \
   -v /etc/group:/etc/group \
   -v ~/.docker:/root/.docker \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v "${SSH_VOLUME}" \
-  -v "${HOME}/Library/Application Support/dallinger/":/.local/share/dallinger/ \
+  -v "${HOME}/Library/Application Support/dallinger/":/root/.local/share/dallinger/ \
   -v "${PWD}":/experiment \
-  -v "${HOME}"/.dallingerconfig:/.dallingerconfig \
+  -v "${HOME}"/.dallingerconfig:/root/.dallingerconfig \
   -v "$PSYNET_EXPORT_STORAGE":/psynet-data/export \
+  -v ~/.ssh:/root/.ssh \
   --network dallinger \
   -p 5000:5000 \
   -e SKIP_DEPENDENCY_CHECK=1 \
@@ -37,5 +39,6 @@ docker run \
   -e PSYNET_DEVELOPER_MODE="${PSYNET_DEVELOPER_MODE:-}" \
   -v "${PSYNET_LOCAL_PATH}":/PsyNet \
   -v "${DALLINGER_LOCAL_PATH}":/dallinger \
+  --add-host=host.docker.internal:host-gateway \
   "${EXPERIMENT_IMAGE}" \
   "$@"

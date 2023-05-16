@@ -1,5 +1,9 @@
 # Installation instructions
 
+Note: if you are planning to develop your own PsyNet experiments, we recommend exploring the 
+[PsyNet documentation website](https://psynet.dev) first and following the generic 
+installation instructions listed there.
+
 ## Prerequisites
 
 This experiment should be compatible with any modern computer running MacOS, Linux, or Windows.
@@ -107,7 +111,19 @@ You build the experiment by running the following in your PyCharm terminal:
 bash docker/build
 ```
 
-If you see some error messages at this point, see Troubleshooting.
+Note: if you see an error message like this:
+
+```shell
+./docker/run: Permission denied
+```
+
+run the following command, then try again:
+
+```shell
+chmod +x docker/*
+```
+
+If you see other error messages at this point, see Troubleshooting.
 
 ## Running the experiment
 
@@ -151,3 +167,8 @@ BIOS", you need to restart your computer into BIOS and change some settings to e
 of steps will depend on your computer. The first step though is to restart your computer, and press a certain key to
 launch into BIOS -- ordinarily that key will be printed on the screen at some point during the startup sequence.
 Hint -- you might find that the option you need to select is called 'SVM mode'...
+
+#### Failed to solve with frontend dockerfile
+
+If you see a message starting "failed to solve with frontend dockerfile.v0",
+you may want to try rebooting your computer and trying again.
