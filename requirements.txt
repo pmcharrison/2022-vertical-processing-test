@@ -15,7 +15,7 @@
 # dallinger@git+https://github.com/Dallinger/Dallinger.git@1719e7c8a7710b4e71719e7c8a7710b4e7c7a00293a8bbac5d5b6bc1bc7a00293a8bbac5d5b6bc1b#egg=dallinger
 
 # New deployment:
-psynet@git+https://gitlab.com/PsyNetDev/PsyNet@3f010eff35d7a6424486afbba9ba879b657b1dc0#egg=psynet
+psynet@git+https://gitlab.com/PsyNetDev/PsyNet@6da14c7cdc333a565e129c991f22b2bec12ef29d#egg=psynet
 dallinger@git+https://github.com/Dallinger/Dallinger.git@e9d13734d179a5f1e0f0b9ddcc7da6292fd8ec98#egg=dallinger
 
 sing4me@git+https://sing4me:Kyha1uWpM91nS1w4tA1g@gitlab.com/computational-audition-lab/sing4me.git@91723f271e45584c93cf1acdfb2ff00f56c12738#egg=sing4me
