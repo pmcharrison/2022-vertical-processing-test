@@ -19,13 +19,25 @@ RUN mkdir /experiment
 WORKDIR /experiment
 
 COPY requirements.txt requirements.txt
-RUN python3 -m pip install -r requirements.txt
+COPY *constraints.txt constraints.txt
+
+ENV SKIP_DEPENDENCY_CHECK=""
+ENV DALLINGER_NO_EGG_BUILD=1
+
+RUN psynet check-constraints
+
+# Uninstall PsyNet and Dallinger because otherwise we can run into edge cases where pip decides
+# that Dallinger/PsyNet doesn't need upgrading and then the editable version is left in place.
+RUN python3 -m pip uninstall -y psynet
+RUN python3 -m pip uninstall -y dallinger
+
+RUN python3 -m pip install -r constraints.txt
 
 WORKDIR /
 
 ARG PSYNET_DEVELOPER_MODE
-RUN if [[ "$PSYNET_DEVELOPER_MODE" = 1 ]] ; then pip install --no-dependencies -e /PsyNet ; fi
-RUN if [[ "$PSYNET_DEVELOPER_MODE" = 1 ]] ; then pip install --no-dependencies -e /dallinger ; fi
+RUN if [[ "$PSYNET_DEVELOPER_MODE" = 1 ]] ; then pip install --no-dependencies -e /PsyNet ; else rm -rf /PsyNet ; fi
+RUN if [[ "$PSYNET_DEVELOPER_MODE" = 1 ]] ; then pip install --no-dependencies -e /dallinger ; else rm -rf /dallinger ; fi
 
 WORKDIR /experiment
 

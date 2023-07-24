@@ -1,23 +1,4 @@
-# Example pinning a particular version of Dallinger
-#
-# Note that caching means that, if you're pinning to a particular branch,
-# then subsequent updates to that branch won't necessarily be incorporated into the Docker image.
-# If you want to ensure that you have the latest version of the branch, it's best to pin
-# to a particular commit.
-#
-# dallinger@git+https://github.com/Dallinger/Dallinger.git@a2c721a868bd21f93be0fb37c619af44fd92cbc2#egg=dallinger
-
-# Example pinning a particular version of PsyNet
-# psynet@git+https://gitlab.com/PsyNetDev/PsyNet#egg=psynet
-
-# Original deployment:
-# psynet@git+https://gitlab.com/PsyNetDev/PsyNet@8f9eae6d1fe07eebd7c73cfaa068a9fd5afdd5fd#egg=psynet
-# dallinger@git+https://github.com/Dallinger/Dallinger.git@1719e7c8a7710b4e71719e7c8a7710b4e7c7a00293a8bbac5d5b6bc1bc7a00293a8bbac5d5b6bc1b#egg=dallinger
-
-# New deployment:
-psynet@git+https://gitlab.com/PsyNetDev/PsyNet@6da14c7cdc333a565e129c991f22b2bec12ef29d#egg=psynet
-dallinger@git+https://github.com/Dallinger/Dallinger.git@e9d13734d179a5f1e0f0b9ddcc7da6292fd8ec98#egg=dallinger
-
+psynet@git+https://gitlab.com/PsyNetDev/PsyNet@v10.1.0#egg=psynet
 sing4me@git+https://sing4me:Kyha1uWpM91nS1w4tA1g@gitlab.com/computational-audition-lab/sing4me.git@91723f271e45584c93cf1acdfb2ff00f56c12738#egg=sing4me
 music21==8.1.0
 pytest
