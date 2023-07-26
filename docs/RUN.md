@@ -75,7 +75,7 @@ and you can then explore the local state of the program.
 
 ## Advanced usage
 
-### Running with local installations of PsyNet and Dallinger
+### Running with local installations of PsyNet and Dallinger (MacOS/Linux only)
 
 This experiment makes heavy use of the Python packages PsyNet and Dallinger.
 If you want to debug either of these packages, it is useful to run your 
@@ -96,6 +96,8 @@ You can change Python code in these packages, save it, then refresh
 the browser, and the app should restart with the new code
 (note: this hot-refreshing does not yet apply to non-Python assets
 such as JavaScript or HTML).
+
+*Warning*: local installations are currently not supported on Windows.
 
 ### Running without bash
 

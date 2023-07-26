@@ -40,13 +40,32 @@ wsl --setdefault Ubuntu
 
 Restart your computer before continuing with the next steps.
 
+Note: If you see a message beginning "Hardware assisted virtualization and data execution protection must be enabled
+in the BIOS", you need to restart your computer into BIOS and change some settings to enable those two things. 
+The precise set of steps will depend on your computer. The first step though is to restart your computer, 
+and press a certain key to launch into BIOS – ordinarily that key will be printed on the screen at some point 
+during the startup sequence. Hint – you might find that the option you need to select is called 'SVM mode'...
+
+Once you’ve installed WSL, you probably will need to restart your computer before trying to relaunch Docker Desktop.
+
 ### Docker
 
 Download Docker Desktop from the [Docker website](https://docs.docker.com/get-docker/) and follow the provided
 installation instructions. Installing Docker is typically trouble-free on MacOS and Linux but can be
 more complex on Windows. If you run into issues see the Troubleshooting section below.
 
-### PyCharm
+You may need to set some settings in Docker Desktop once it’s installed. Navigate to Docker Desktop settings, 
+then look for an ‘Advanced’ tab. If you don’t see such a tab, you can skip the following instructions.
+If you do see such a tab, do the following:
+
+1. Select 'System (requires password)' installation of Docker's CLI tools, rather than 'User'.
+
+2. Tick the box that says 'Allow the default Docker socket to be used'.
+
+3. Tick the box that says 'Allow privileged port mapping'.
+
+
+### Installing PyCharm
 
 Writing code usually benefits from an integrated development environment (IDE). 
 We recommend using PyCharm for PsyNet experiments, specifically the Professional Edition.
@@ -78,6 +97,13 @@ to store your repositories online.
 git config --global core.autocrlf false
 git config --global core.eol lf
 ```
+
+*Windows users only*: if you plan to use an SSH key to connect to your online Git hosting service, 
+and you want to use an SSH key with a password, then by default you will have to reenter your password 
+each time you restart WSL. If this sounds annoying, we recommend either creating your SSH key without a password,
+or following the instructions [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases?platform=windows)
+to have you password managed by `ssh-agent`.
+
 
 ## Downloading the repository
 
@@ -137,6 +163,17 @@ chmod +x docker/*
 
 If you see other error messages at this point, see Troubleshooting.
 
+Now you should configure PyCharm to use your experiment's Docker image.
+To do this, first open the Dockertag file in your experiment's directory, and copy the contents to your clipboard.
+Then look for a box in the bottom-right corner of your screen that says 'No interpreter'. 
+Click on this text and click 'Add New interpreter'. 
+Click 'Pull or use existing', then under 'Image tag' paste the contents of the Dockertag file you copied earlier. 
+Click Next, and wait a while. The script will initially look for that tag on Dockerhub, which should fail;
+It should then look for that tag on your local computer, and successfully acquire the image you just built locally.
+Click Next, then select 'System Interpreter', then click 'Create'. You should have now successfully set up your 
+interpreter.  
+
+
 ## Running the experiment
 
 If all has gone well, you should now be able to run the experiment. 
@@ -149,14 +186,6 @@ bash docker/psynet debug local
 It'll print a lot of stuff, but eventually you should see 'Dashboard link' printed.
 Open the provided URL in Google Chrome, and it'll take you to the experiment dashboard.
 From here you can start a new participant session.
-
-## Configuring your PyCharm Python Console
-
-If you are planning to work with this repository, it will be useful to configure PyCharm to use your experiment's Docker
-image. To do this, look for a box in the bottom-right corner of your screen that says 'No interpreter'. Click on this
-text and click 'Add interpreter'. Click Docker, and then under 'image name' enter '2022-consonance-carillon:latest' (no
-quotes). Press OK. Now if you click on 'Python console' at the bottom of the screen, you should get a Python interpreter
-corresponding to the image you just built.
 
 ## Troubleshooting
 
