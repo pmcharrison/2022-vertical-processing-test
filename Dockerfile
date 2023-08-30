@@ -10,7 +10,7 @@
 #   This simplifies the logic and ensures that experimenters can specify package versions precisely if they want.
 #   The small performance overhead is mostly eliminated by caching.
 
-FROM registry.gitlab.com/psynetdev/psynet:master
+FROM registry.gitlab.com/psynetdev/psynet:v10.3.1
 
 # This is used for debugging experiments using PyCharm
 RUN python3 -m pip install pydevd-pycharm~=221.6008.17
@@ -24,6 +24,7 @@ COPY *constraints.txt constraints.txt
 ENV SKIP_DEPENDENCY_CHECK=""
 ENV DALLINGER_NO_EGG_BUILD=1
 
+# If you see an error here, you probably need to run `bash docker/generate-constraints` and then try again.
 RUN psynet check-constraints
 
 # Uninstall PsyNet and Dallinger because otherwise we can run into edge cases where pip decides

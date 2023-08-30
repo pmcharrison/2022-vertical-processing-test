@@ -16,6 +16,20 @@ fi
 ( docker stop dallinger > /dev/null && echo Stopped existing dallinger container && \
   docker rm dallinger ) 2>/dev/null || true
 
+if [[ ${PSYNET_DEVELOPER_MODE:-} == "1" ]]; then
+  echo "Ensuring that local installations are ready to use in Docker..."
+
+  docker run \
+   --rm \
+   -v "${PSYNET_LOCAL_PATH}":/PsyNet \
+   -v "${DALLINGER_LOCAL_PATH}":/dallinger \
+   "${EXPERIMENT_IMAGE}" \
+   /bin/bash -c "if [ ! -d '/dallinger/dallinger.egg-info' ]; then pip install -e '/dallinger[dev]'; fi && if [ ! -d '/PsyNet/psynet.egg-info' ]; then pip install -e '/PsyNet[dev]'; fi"
+
+   echo "...local installations seem ready."
+fi
+
+
 docker run \
   --name dallinger \
   --rm \
