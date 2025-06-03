@@ -1,7 +1,9 @@
 # Running instructions
 
-To run a PsyNet command using the re
-Docker, you write commands of the following form:
+Note: the following instructions assume that you are using the 'Docker' method for running PsyNet.
+If you are instead using the 'virtualenv' method, please refer to the 
+[PsyNet documentation website](https://psynetdev.gitlab.io/PsyNet/index.html) for instructions 
+for how to run your experiment.
 
 ```shell
 # Debug the experiment locally

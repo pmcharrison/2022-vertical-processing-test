@@ -41,6 +41,8 @@ docker run \
   -v "${HOME}/Library/Application Support/dallinger/":/root/.local/share/dallinger/ \
   -v "${PWD}":/experiment \
   -v "${HOME}"/.dallingerconfig:/root/.dallingerconfig \
+  -v "${HOME}"/.netrc:/root/.netrc \
+  -v "${HOME}"/.gitconfig:/root/.gitconfig \
   -v "$PSYNET_EXPORT_STORAGE":/psynet-data/export \
   -v ~/.ssh:/root/.ssh \
   --network dallinger \

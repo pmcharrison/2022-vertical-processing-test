@@ -1,7 +1,8 @@
 [App]
 title = Vertical processing test
 recruiter = generic
+show_reward = false
 
 [Experimenter details]
-contact_email_on_error = pmch2@cam.ac.uk
+contact_email_on_error = XXX
 organization_name = University of Cambridge

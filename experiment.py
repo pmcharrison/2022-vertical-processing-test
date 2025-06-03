@@ -713,20 +713,15 @@ def debrief_and_feedback():
 class Exp(psynet.experiment.Experiment):
     label = "Vertical processing experiment"
     asset_storage = LocalStorage()
-    # asset_storage = S3Storage("psynet-tests", "audio-record")
-
-    config = {
-        "show_bonus": False
-    }
 
     timeline = Timeline(
-        requirements(),
-        consent(),
-        overview(),
-        equipment_test(),
+        # requirements(),
+        # consent(),
+        # overview(),
+        # equipment_test(),
         get_voice_type(),
-        instructions(),
-        practice(),
+        # instructions(),
+        # practice(),
         main(),
         questionnaire(),
         debrief_and_feedback(),

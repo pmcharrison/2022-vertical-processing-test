@@ -7,8 +7,7 @@
 # You can customize the behavior of the automated tests by overriding certain methods within
 # your experiment class, located in experiment.py:
 # - test_experiment
-# - test_create_bots
-# - test_run_bots
+# - test_serial_run_bots
 # - test_check_bots
 # - test_check_bot
 
@@ -22,19 +21,11 @@ experiment_dir = os.path.dirname(__file__)
 
 @pytest.mark.parametrize("experiment_directory", [experiment_dir], indirect=True)
 def test_experiment(launched_experiment):
+    # NOTE:
+    # If pytest reports a failure and prints these lines in your traceback
+    # without printing the actual lines within `test_experiment` that raised the error,
+    # you may be suffering from a bug in PyCharm's test reporting. To fix this,
+    # we recommend either running the test externally (`psynet test local`)
+    # or editing your PyCharm run configuration to add `--tb=short` to your additional
+    # arguments. This should ensure that the full traceback is printed.
     launched_experiment.test_experiment()
-
-
-run_this = False
-
-if run_this:
-    from .scoring import score_response
-
-    def test_scoring():
-        # The participant gets 1 point for every note in the chord (within 0.5 semitones accuracy),
-        # but you can't sing the same note twice, and singing a note not in the chord loses you 0.5 points.
-        assert score_response(target=[60, 64], response=[60, 64]) == 2
-        assert score_response(target=[60, 64], response=[60, 65]) == 0.5
-        assert score_response(target=[60, 64], response=[61]) == 0
-        assert score_response(target=[60, 64], response=[60]) == 1
-        assert score_response(target=[60, 64], response=[60, 60]) == 0.5

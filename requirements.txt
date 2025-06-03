@@ -1,4 +1,4 @@
-psynet==10.4.0
-sing4me@git+https://sing4me:Kyha1uWpM91nS1w4tA1g@gitlab.com/computational-audition-lab/sing4me.git@91723f271e45584c93cf1acdfb2ff00f56c12738#egg=sing4me
+psynet==12.0.3
+sing4me@git+https://gitlab.com/computational-audition/sing4me.git@a5ffff0feba95e0836bc2a7808b02ad3c78ac5ac#egg=sing4me
 music21==8.1.0
 pytest

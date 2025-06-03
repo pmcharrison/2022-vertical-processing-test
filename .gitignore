@@ -12,6 +12,9 @@ server.log
 # Automatically generated resources for running experiments with assets
 static/assets
 
+# Experiment source code snapshot created in `Experiment.pre_deploy`
+source_code.zip
+
 # PyCharm configuration file
 .idea
 
