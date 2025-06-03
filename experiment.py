@@ -715,13 +715,13 @@ class Exp(psynet.experiment.Experiment):
     asset_storage = LocalStorage()
 
     timeline = Timeline(
-        # requirements(),
-        # consent(),
-        # overview(),
-        # equipment_test(),
+        requirements(),
+        consent(),
+        overview(),
+        equipment_test(),
         get_voice_type(),
-        # instructions(),
-        # practice(),
+        instructions(),
+        practice(),
         main(),
         questionnaire(),
         debrief_and_feedback(),
