@@ -7,83 +7,79 @@
 # Compiled from a requirement.txt file with md5sum: 0a46a9f5ccc6d0487725c14ae7019aaa
 #
 ansi2html==1.9.2
-    # via dallinger
-appnope==0.1.4
-    # via ipython
-apscheduler==3.10.4
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
+    #   dallinger
+apscheduler==3.11.0
+    # via
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
 arabic-reshaper==3.0.0
     # via psynet
-asttokens==2.4.1
+asttokens==3.0.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   stack-data
-attrs==23.2.0
+attrs==25.3.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   outcome
     #   trio
-babel==2.14.0
+babel==2.17.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   psynet
-backcall==0.2.0
+bcrypt==4.3.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
-    #   ipython
-bcrypt==4.1.2
-    # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   paramiko
-beautifulsoup4==4.12.2
+beautifulsoup4==4.13.4
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-blinker==1.7.0
+blinker==1.9.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   flask
-boto3==1.34.11
+boto3==1.38.20
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-botocore==1.34.11
+botocore==1.38.20
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   boto3
     #   s3transfer
-build==1.0.3
+build==1.2.2.post1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
     #   pip-tools
-cached-property==1.5.2
+cached-property==2.0.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-certifi==2023.11.17
+certifi==2025.4.26
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   requests
     #   selenium
-cffi==1.16.0
+cffi==1.17.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   cryptography
     #   pynacl
 chardet==5.2.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   music21
-charset-normalizer==3.3.2
+charset-normalizer==3.4.2
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   requests
-click==8.1.7
+click==8.1.8
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
     #   flask
     #   pip-tools
@@ -91,9 +87,9 @@ click==8.1.7
     #   sing4me
 contourpy==1.3.2
     # via matplotlib
-cryptography==41.0.7
+cryptography==45.0.2
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   paramiko
     #   pyopenssl
 cycler==0.12.1
@@ -102,29 +98,29 @@ dallinger[docker]==11.3.1
     # via
     #   dallinger
     #   psynet
-decorator==5.1.1
+decorator==5.2.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   ipython
-docker==7.0.0
+docker==7.1.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
 docopt==0.6.2
     # via sing4me
 dominate==2.9.1
     # via psynet
-executing==2.0.1
+executing==2.2.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   stack-data
-faker==22.0.0
+faker==37.3.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-flask==3.0.0
+flask==3.1.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
     #   flask-crossdomain
     #   flask-login
@@ -133,79 +129,79 @@ flask==3.0.0
     #   sing4me
 flask-crossdomain==0.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
 flask-login==0.6.3
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
 flask-sock==0.7.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-flask-wtf==1.2.1
+flask-wtf==1.2.2
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-fonttools==4.58.1
+fonttools==4.58.4
     # via matplotlib
-future==0.18.3
+future==1.0.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-gevent==23.9.1
+gevent==25.5.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
     #   gunicorn
-greenlet==3.0.3
+greenlet==3.2.2
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
     #   gevent
-gunicorn[gevent]==21.2.0
+gunicorn[gevent]==23.0.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-h11==0.14.0
+h11==0.16.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   wsproto
 heroku3==5.2.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
 html2text==2025.4.15
     # via psynet
-idna==3.6
+idna==3.10
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   requests
     #   trio
-iniconfig==2.0.0
+iniconfig==2.1.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   pytest
-ipython==8.12.3
+ipython==8.18.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-itsdangerous==2.1.2
+itsdangerous==2.2.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   flask
     #   flask-wtf
-jedi==0.19.1
+jedi==0.19.2
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   ipython
-jinja2==3.1.2
+jinja2==3.1.6
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   flask
 jmespath==1.0.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   boto3
     #   botocore
 joblib==1.5.1
@@ -218,13 +214,14 @@ jsonpickle==4.1.1
     #   psynet
 kiwisolver==1.4.8
     # via matplotlib
-localconfig==1.1.3
+localconfig==1.1.4
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-markupsafe==2.1.3
+markupsafe==3.0.2
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
+    #   flask
     #   jinja2
     #   werkzeug
     #   wtforms
@@ -232,21 +229,19 @@ matplotlib==3.10.3
     # via
     #   music21
     #   sing4me
-matplotlib-inline==0.1.6
+matplotlib-inline==0.1.7
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   ipython
-mock==5.1.0
-    # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
-    #   psynet
+mock==5.2.0
+    # via psynet
 more-itertools==10.7.0
     # via music21
 music21==8.1.0
     # via -r requirements.txt
-numpy==1.24.4
+numpy==2.0.2
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   contourpy
     #   dallinger
     #   matplotlib
@@ -257,258 +252,268 @@ numpy==1.24.4
     #   sing4me
 outcome==1.3.0.post0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   trio
-packaging==23.2
+    #   trio-websocket
+packaging==25.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   build
-    #   docker
     #   gunicorn
     #   matplotlib
     #   pytest
-pandas==2.0.3
+pandas==2.2.3
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   psynet
-paramiko==3.4.0
+paramiko==3.5.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
     #   psynet
     #   sshtunnel
-parso==0.8.3
+parso==0.8.4
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   jedi
 pexpect==4.9.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-    #   ipython
-pickleshare==0.7.5
-    # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
     #   ipython
 pillow==11.2.1
     # via
     #   matplotlib
     #   psynet
-pip-tools==7.3.0
+pip-tools==7.4.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-pluggy==1.3.0
+pluggy==1.6.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   pytest
 polib==1.2.0
     # via psynet
-praat-parselmouth==0.4.5
+praat-parselmouth==0.4.6
     # via sing4me
 progress==1.6
     # via psynet
-prompt-toolkit==3.0.43
+prompt-toolkit==3.0.51
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   ipython
-psutil==5.9.7
+psutil==7.0.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-psycopg2==2.9.9
+psycopg2==2.9.10
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
     #   sqlalchemy-postgres-copy
 psynet==12.0.3
     # via -r requirements.txt
 ptyprocess==0.7.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   pexpect
-pure-eval==0.2.2
+pure-eval==0.2.3
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   stack-data
-pycparser==2.21
+pycparser==2.22
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   cffi
-pygments==2.17.2
+pygments==2.19.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   ipython
 pygtail==0.14.0
-    # via dallinger
+    # via
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
+    #   dallinger
 pynacl==1.5.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   paramiko
-pyopenssl==23.3.0
+pyopenssl==25.1.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
 pyparsing==3.2.3
     # via matplotlib
-pyproject-hooks==1.0.0
+pyproject-hooks==1.2.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   build
+    #   pip-tools
 pysocks==1.7.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   urllib3
-pytest==7.4.4
+pytest==8.3.5
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
-    #   -r /var/folders/9w/3cqj1lms4t5c9n3w5k7m95y80000gn/T/tmpbsnevfw_/requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
+    #   -r /var/folders/9w/3cqj1lms4t5c9n3w5k7m95y80000gn/T/tmpz6dze0kt/requirements.txt
     #   psynet
     #   pytest-mock
 pytest-mock==3.14.1
     # via psynet
-python-dateutil==2.8.2
+python-dateutil==2.9.0.post0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   botocore
-    #   faker
     #   heroku3
     #   matplotlib
     #   pandas
 python-gettext==5.0
     # via psynet
-python-json-logger==2.0.7
+python-json-logger==3.3.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-pytz==2023.3.post1
+pytz==2025.2
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
-    #   apscheduler
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   pandas
-redis==5.0.1
+redis==6.1.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
     #   rq
-requests==2.31.0
+requests==2.32.3
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
     #   docker
     #   heroku3
     #   music21
 rpdb==0.2.0
     # via psynet
-rq==1.15.1
+rq==2.3.3
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-s3transfer==0.10.0
+s3transfer==0.12.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   boto3
-scipy==1.15.3
+scipy==1.16.0
     # via sing4me
-selenium==4.16.0
+selenium==4.32.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-simple-websocket==1.0.0
+simple-websocket==1.1.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   flask-sock
 sing4me @ git+https://gitlab.com/computational-audition/sing4me.git@a5ffff0feba95e0836bc2a7808b02ad3c78ac5ac
     # via -r requirements.txt
-six==1.16.0
+six==1.17.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
-    #   apscheduler
-    #   asttokens
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
     #   python-dateutil
     #   sqlalchemy-postgres-copy
-sniffio==1.3.0
+sniffio==1.3.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   trio
 sortedcontainers==2.4.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   trio
-soupsieve==2.5
+soupsieve==2.7
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   beautifulsoup4
-sqlalchemy==1.4.51
+sqlalchemy==1.4.54
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
     #   sqlalchemy-postgres-copy
 sqlalchemy-postgres-copy==0.5.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
 sshtunnel==0.4.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
 stack-data==0.6.3
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   ipython
 tabulate==0.9.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-tenacity==8.2.3
+tenacity==9.1.2
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
     #   psynet
 termcolor==2.3.0
-    # via yaspin
+    # via
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
+    #   yaspin
 textgrid==1.6.1
     # via sing4me
 timeago==1.0.16
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-tomlkit==0.13.2
+tomlkit==0.13.3
     # via psynet
 tqdm==4.67.1
-    # via psynet
-traitlets==5.14.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
+    #   psynet
+traitlets==5.14.3
+    # via
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   ipython
     #   matplotlib-inline
-trio==0.23.2
+trio==0.30.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   selenium
     #   trio-websocket
-trio-websocket==0.11.1
+trio-websocket==0.12.2
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   selenium
-tzdata==2023.4
+typing-extensions==4.13.2
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
+    #   beautifulsoup4
+    #   pyopenssl
+    #   selenium
+tzdata==2025.2
+    # via
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
+    #   faker
     #   pandas
-tzlocal==5.2
+tzlocal==5.3.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   apscheduler
     #   dallinger
-ua-parser==0.18.0
+ua-parser==1.0.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
     #   user-agents
-urllib3[socks]==1.26.18
+ua-parser-builtins==0.18.0.post1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
+    #   ua-parser
+urllib3[socks]==1.26.20
+    # via
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   botocore
     #   dallinger
     #   docker
@@ -516,45 +521,50 @@ urllib3[socks]==1.26.18
     #   selenium
 user-agents==2.2.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
-wcwidth==0.2.12
+wcwidth==0.2.13
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   prompt-toolkit
-webcolors==1.13
+webcolors==24.11.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   music21
-werkzeug==3.0.1
+websocket-client==1.8.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
+    #   selenium
+werkzeug==3.1.3
+    # via
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   flask
     #   flask-login
-wheel==0.42.0
+wheel==0.45.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   pip-tools
 wsproto==1.2.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   simple-websocket
     #   trio-websocket
-wtforms==3.1.1
+wtforms==3.2.1
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   flask-wtf
 yaspin==3.1.0
     # via
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   dallinger
     #   psynet
 zope-event==5.0
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   gevent
-zope-interface==6.1
+zope-interface==7.2
     # via
-    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v9.12.0/dev-requirements.txt
+    #   -c https://raw.githubusercontent.com/Dallinger/Dallinger/v11.3.1/dev-requirements.txt
     #   gevent
 
 # The following packages are considered to be unsafe in a requirements file:
